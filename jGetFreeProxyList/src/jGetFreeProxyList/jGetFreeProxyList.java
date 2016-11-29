@@ -14,3 +14,18 @@ package jGetFreeProxyList;
 public class jGetFreeProxyList {
     
 }
+
+/*
+jGetFreeProxyList jGetFreeProxyList = new jGetFreeProxyList(
+	new jGetFreeProxyListListener(){
+		void process(int percent){
+
+		}
+		void done(){
+
+		}
+	}
+);
+
+
+ */
