@@ -13,19 +13,24 @@ package jGetFreeProxyList;
 
 public class jGetFreeProxyList {
     
+	
+	public static void main(String[] args) {
+		jGetFreeProxyList jGetFreeProxyList = new jGetFreeProxyList(
+			new jGetFreeProxyListListener(){
+				void process(int percent){
+
+				}
+				void done(ArrayList testedProxies){
+
+				}
+			}
+		);
+		jGetFreeProxyList.run();
+	};
+  
 }
 
 /*
-jGetFreeProxyList jGetFreeProxyList = new jGetFreeProxyList(
-	new jGetFreeProxyListListener(){
-		void process(int percent){
-
-		}
-		void done(){
-
-		}
-	}
-);
 
 
  */
