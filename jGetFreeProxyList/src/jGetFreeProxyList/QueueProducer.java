@@ -9,22 +9,22 @@
  * @email: mstorage.project@gmail.com
  * @date: 2016
  */
-package jGetFreeProxyList.Threads;
+package jGetFreeProxyList;
 
 import jGetFreeProxyList.jGetFreeProxyList;
 
+
+
 /**
- * Use in pool of threads to find proxies from concrete url
+ * Filler to queue will add task to queue as it will need
 **/
-public class GetProxy extends WorkThread {
-	
+public class QueueProducer extends WorkThread {
 	@Override
     public void run() {
     
     }
     
-    public GetProxy(jGetFreeProxyList parent) {
+    public QueueProducer(jGetFreeProxyList parent) {
 		super(parent);
     }
-	
 }
