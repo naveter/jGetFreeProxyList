@@ -924,7 +924,7 @@ percentage
 <XPD:OBJ name="OwnedViews[7]" type="UMLClassView" guid="J6lSI5iUoEWeO6ZKyRmtJAAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Left" type="integer">548</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">428</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">44</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">259</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">69</XPD:ATTR>
@@ -955,7 +955,7 @@ percentage
 <XPD:OBJ name="OwnedViews[8]" type="UMLNoteView" guid="xDh2uswJG0eL14lQM3O/5QAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$0080FF80</XPD:ATTR>
-<XPD:ATTR name="Left" type="integer">548</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">428</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">20</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">190</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">23</XPD:ATTR>
@@ -1455,7 +1455,7 @@ percentage
 <XPD:OBJ name="OwnedViews[20]" type="UMLAssociationView" guid="KKsmtci2BE+aykfoegsADQAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">548,80;344,83</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">428,81;344,83</XPD:ATTR>
 <XPD:REF name="Model">UeOGM5MGzEKA2q8sJzVcRQAA</XPD:REF>
 <XPD:REF name="Head">Qpns4os56UCCKLvnqDolZQAA</XPD:REF>
 <XPD:REF name="Tail">J6lSI5iUoEWeO6ZKyRmtJAAA</XPD:REF>
