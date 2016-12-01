@@ -44,9 +44,23 @@ public class Settings {
 			TestByUrls.add(new URL("https://www.facebook.com/"));
 			TestByUrls.add(new URL("http://edition.cnn.com/"));
 			TestByUrls.add(new URL("http://www.bbc.com/news"));
+			
+			GetProxyUrls.add(new InfoUrl(new URL("http://www.prime-speed.ru/proxy/free-proxy-list/all-working-proxies.php")));
+			GetProxyUrls.add(new InfoUrl(new URL("http://awmproxy.com/freeproxy.php")));
+			GetProxyUrls.add(new InfoUrl(new URL("https://proxy-list.org/russian/index.php")));
+			GetProxyUrls.add(new InfoUrl(new URL("http://samair.ru/proxy/")));
+			GetProxyUrls.add(new InfoUrl(new URL("http://proxydb.net/")));
+			
+			// TODO: test in future
+			// GetProxyUrls.add(new InfoUrl(new URL("http://www.atomintersoft.com/products/alive-proxy/proxy-list")));
+			// GetProxyUrls.add(new InfoUrl(new URL("http://www.freeproxy.ru/download/lists/goodproxy.txt")));
+			 
+		
 		}
 		catch(MalformedURLException e) {
 			// With that urls it is impossible
 		}
+		
 	}
+	
 }

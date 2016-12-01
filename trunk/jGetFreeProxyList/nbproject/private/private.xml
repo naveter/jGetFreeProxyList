@@ -7,6 +7,11 @@
         </group>
         <group name="Java">
             <file>file:/C:/work/jGetFreeProxyList/jGetFreeProxyList/src/jGetFreeProxyList/jGetFreeProxyList.java</file>
+            <file>file:/C:/work/jGetFreeProxyList/jGetFreeProxyList/src/jGetFreeProxyList/Threads/QueueProducer.java</file>
+            <file>file:/C:/work/jGetFreeProxyList/jGetFreeProxyList/src/jGetFreeProxyList/Threads/TestProxy.java</file>
+            <file>file:/C:/work/jGetFreeProxyList/jGetFreeProxyList/src/jGetFreeProxyList/Threads/WorkThread.java</file>
+            <file>file:/C:/work/jGetFreeProxyList/jGetFreeProxyList/src/jGetFreeProxyList/Threads/GetProxy.java</file>
+            <file>file:/C:/work/jGetFreeProxyList/jGetFreeProxyList/src/jGetFreeProxyList/Threads/StateControl.java</file>
         </group>
     </open-files>
 </project-private>
