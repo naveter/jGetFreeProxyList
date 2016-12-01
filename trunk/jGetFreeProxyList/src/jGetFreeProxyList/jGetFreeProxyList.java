@@ -11,7 +11,6 @@
  */
 package jGetFreeProxyList;
 
-import jGetFreeProxyList.Threads.*;
 import java.util.ArrayList;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
@@ -21,6 +20,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Utility to get a list of tested free proxies
@@ -36,8 +36,11 @@ public final class jGetFreeProxyList {
 	// Listener for cunsumer's communication
     jGetFreeProxyListListener jGetFreeProxyListListener;
 	
-	// How much tests was done
-    AtomicInteger WorkCounter;
+	// Counter of ended GetProxy threads 
+    AtomicInteger GetProxyCounter;
+    
+    // Counter of ended TestProxy threads
+    AtomicInteger TestProxyCounter;
 	
 	// List of unique non tested proxies
     CopyOnWriteArrayList<ProxyItem> RawProxies;
@@ -67,6 +70,7 @@ public final class jGetFreeProxyList {
 		// Start StateControl
 		this.ExStateControl = Executors.newSingleThreadExecutor();
 		Future<?> futureExStateControl = this.ExStateControl.submit(new StateControl(this));
+        this.ExStateControl.shutdown();
 		
 		// Starting threads to get proxies 
 		int cntGetProxyUrls = Settings.GetProxyUrls.size();
@@ -79,7 +83,7 @@ public final class jGetFreeProxyList {
         this.ExGetProxy.shutdown();
 
 		// Await until all GetProxy threads will ended
-        this.ExGetProxy.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+        this.ExGetProxy.awaitTermination(10, TimeUnit.SECONDS);
 		
 		// If if there is alaliable proxies to test
 		if (0 == this.RawProxies.size()) {
@@ -88,23 +92,25 @@ public final class jGetFreeProxyList {
 		}
 		
 		// Start QueueProducer
-		this.ExQueueProducer = Executors.newSingleThreadExecutor();
-		Future<?> futureExQueueProducer = this.ExQueueProducer.submit(new QueueProducer(this));
+//		this.ExQueueProducer = Executors.newSingleThreadExecutor();
+//		Future<?> futureExQueueProducer = this.ExQueueProducer.submit(new QueueProducer(this));
+//		
+//		// Starting threads to test proxies 
+//		this.ExTestProxy = Executors.newFixedThreadPool(Settings.AmountThreads);
+//		
+//        for(int i = 0; i < Settings.AmountThreads; i++){
+//            this.ExTestProxy.submit(new GetProxy(this));
+//        }
+//
+//        this.ExTestProxy.shutdown();
+//		this.ExQueueProducer.shutdown();
 		
-		// Starting threads to test proxies 
-		this.ExTestProxy = Executors.newFixedThreadPool(Settings.AmountThreads);
-		
-        for(int i = 0; i < Settings.AmountThreads; i++){
-            this.ExTestProxy.submit(new GetProxy(this));
-        }
-
-        this.ExTestProxy.shutdown();
-		this.ExQueueProducer.shutdown();
-		this.ExStateControl.shutdown();
+        this.ExStateControl.shutdownNow();
+        futureExStateControl.cancel(true);
 
 		// Await until all TestProxy threads and QueueProducer will ended
-		this.ExTestProxy.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
-		this.ExQueueProducer.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+//		this.ExTestProxy.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+//		this.ExQueueProducer.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
 		this.ExStateControl.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
 		
 		this.jGetFreeProxyListListener.process(100, 100);
@@ -134,11 +140,12 @@ public final class jGetFreeProxyList {
 			new jGetFreeProxyListListener(){
 				@Override
 				public void process(int getProxyPerc, int testProxyPerc){
-
+                    System.out.println(".process():" + getProxyPerc + ":" + testProxyPerc);
 				}
 				@Override
-				public void done(ArrayList testedProxies){
-
+				public void done(ArrayList<ProxyItem> testedProxies){
+                    System.out.println(".done(): " + StringUtils.join(testedProxies, ", "));
+                   
 				}
 			}
 		);
@@ -150,11 +157,29 @@ public final class jGetFreeProxyList {
 			System.out.println(e.getMessage());
 		}
 		
-	};
+	}
+    
+    /**
+     * Calc percentage from given max and current value
+     * 
+     * @param max
+     * @param now
+     * @return 
+     */
+    static int calcPercentage(int max, int now){
+        max = Math.abs(max);
+        now = Math.abs(now);
+        
+        if (now >= max) return 100;
+        
+        // mean max was multiply to 100
+        max = max*100;
+        now = now*100;
+        int onePercent = max/100;
+        int nowPercent = (now / onePercent);
+        
+        return nowPercent;
+    }
   
 }
 
-/*
-
-
- */

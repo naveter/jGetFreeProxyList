@@ -9,14 +9,14 @@
  * @email: mstorage.project@gmail.com
  * @date: 2016
  */
-package jGetFreeProxyList.Threads;
+package jGetFreeProxyList;
 
 import jGetFreeProxyList.jGetFreeProxyList;
 
 /**
  * Abstract extension for all work threads in this lib
  */
-abstract class WorkThread implements Runnable {
+public abstract class WorkThread implements Runnable {
 	/**
 	 * Instance of main thread
 	 */

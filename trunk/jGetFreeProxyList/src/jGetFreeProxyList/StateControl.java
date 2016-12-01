@@ -9,7 +9,7 @@
  * @email: mstorage.project@gmail.com
  * @date: 2016
  */
-package jGetFreeProxyList.Threads;
+package jGetFreeProxyList;
 
 import jGetFreeProxyList.jGetFreeProxyList;
 
@@ -21,7 +21,16 @@ public class StateControl extends WorkThread {
 	
 	@Override
     public void run() {
-    
+        while(true) {
+            // Ask for condition every second
+            try {
+                Thread.sleep(1000);
+            }
+            catch(InterruptedException e) {}
+        
+//            int diffGetProxy = Settings.GetProxyUrls.size() - this.Main.GetProxyCounter.get();
+//            this.Main.GetProxyCounter.incrementAndGet();
+        }
     }
     
     public StateControl(jGetFreeProxyList parent) {

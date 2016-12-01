@@ -9,7 +9,7 @@
  * @email: mstorage.project@gmail.com
  * @date: 2016
  */
-package jGetFreeProxyList.Threads;
+package jGetFreeProxyList;
 
 import jGetFreeProxyList.jGetFreeProxyList;
 
