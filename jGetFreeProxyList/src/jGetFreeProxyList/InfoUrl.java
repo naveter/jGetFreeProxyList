@@ -11,10 +11,24 @@
  */
 package jGetFreeProxyList;
 
+/**
+ * Structure to represent info about servers when possible to find proxies
+ * and how parse theirs page.
+ */
 public class InfoUrl {
     public java.net.URL Url;
-    protected String PatternString;
-    public void InfoUrl(java.net.URL url) {
-    
+	
+	/**
+	 * PregMach how to find proxy
+	 */
+    protected String PatternString = "([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3})\\s*:\\s*([0-9]+)";
+	
+    public InfoUrl(java.net.URL url) {
+		if (null == url) {
+			throw new NullPointerException("InfoUrl has to be defined");
+		}
+		
+		this.Url = url;
     }
+	
 }
