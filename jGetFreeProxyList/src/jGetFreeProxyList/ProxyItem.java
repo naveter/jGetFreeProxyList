@@ -21,6 +21,15 @@ public class ProxyItem {
     public InetAddress Ip;
     public int Port;
 	
+	public ProxyItem(InetAddress ip, int port){
+		if (null == ip || port <= 0) {
+			throw new RuntimeException("IP or host is not valid");
+		}
+		
+		this.Ip = ip;
+		this.Port = port;
+	}
+	
 	/**
 	 * How much second wait answer in last test time
 	 */
