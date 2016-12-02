@@ -18,19 +18,37 @@ import jGetFreeProxyList.jGetFreeProxyList;
  * Control thread to check state of work and inform consumers
 **/
 public class StateControl extends WorkThread {
+	private static int askPeriod = 1000;
 	
 	@Override
     public void run() {
-        while(true) {
-            // Ask for condition every second
+		
+		System.out.println("jGetFreeProxyList.StateControl.run() started");
+		
+		// Thread will finish when main thread shutdown it
+        while(!this.Main.ExStateControl.isShutdown()) {
+			
+            // Ask for condition every N seconds
             try {
-                Thread.sleep(1000);
+                Thread.sleep(StateControl.askPeriod);
             }
             catch(InterruptedException e) {}
         
-//            int diffGetProxy = Settings.GetProxyUrls.size() - this.Main.GetProxyCounter.get();
-//            this.Main.GetProxyCounter.incrementAndGet();
+			int percGetProxy = jGetFreeProxyList.calcPercentage(
+				Settings.GetProxyUrls.size(), this.Main.GetProxyCounter.get()
+			);
+			
+			int percTestProxy = jGetFreeProxyList.calcPercentage(
+				this.Main.RawProxies.size(), this.Main.TestProxyCounter.get()
+			);
+			
+			if (!this.Main.ExStateControl.isShutdown()) {
+				this.Main.jGetFreeProxyListListener.process(percGetProxy, percTestProxy);
+			}
         }
+		
+		System.out.println("jGetFreeProxyList.StateControl.run() ended");
+		
     }
     
     public StateControl(jGetFreeProxyList parent) {

@@ -45,10 +45,10 @@ public class jGetFreeProxyListTest {
      */
     @Test
     public void testCalcPercentage() {
-        assertEquals(100, jGetFreeProxyList.calcPercentage(0, 0));
+        assertEquals(0, jGetFreeProxyList.calcPercentage(0, 0));
         assertEquals(0, jGetFreeProxyList.calcPercentage(57, 0));
         assertEquals(33, jGetFreeProxyList.calcPercentage(75, 25));
-        assertEquals(100, jGetFreeProxyList.calcPercentage(0, 1));
+        assertEquals(0, jGetFreeProxyList.calcPercentage(0, 1));
         assertEquals(20, jGetFreeProxyList.calcPercentage(50, 10));
         assertEquals(50, jGetFreeProxyList.calcPercentage(38, 19));
         assertEquals(25, jGetFreeProxyList.calcPercentage(36, 9));

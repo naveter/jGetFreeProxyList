@@ -31,19 +31,19 @@ public final class jGetFreeProxyList {
     ArrayBlockingQueue<ProxyItem> ProxiesQueue;
 	
 	// Proxies that tested already
-    ConcurrentHashMap<String, ProxyItem> TestedProxies;
+    ConcurrentHashMap<String, ProxyItem> TestedProxies = new ConcurrentHashMap<>();
 	
 	// Listener for cunsumer's communication
     jGetFreeProxyListListener jGetFreeProxyListListener;
 	
 	// Counter of ended GetProxy threads 
-    AtomicInteger GetProxyCounter;
+    AtomicInteger GetProxyCounter = new AtomicInteger(0);
     
     // Counter of ended TestProxy threads
-    AtomicInteger TestProxyCounter;
+    AtomicInteger TestProxyCounter = new AtomicInteger(0);
 	
 	// List of unique non tested proxies
-    CopyOnWriteArrayList<ProxyItem> RawProxies;
+    CopyOnWriteArrayList<ProxyItem> RawProxies = new CopyOnWriteArrayList<>();
 	
 	// Executors for threads
 	ExecutorService ExStateControl;
@@ -70,7 +70,9 @@ public final class jGetFreeProxyList {
 		// Start StateControl
 		this.ExStateControl = Executors.newSingleThreadExecutor();
 		Future<?> futureExStateControl = this.ExStateControl.submit(new StateControl(this));
-        this.ExStateControl.shutdown();
+        
+		
+		System.out.println("jGetFreeProxyList.jGetFreeProxyList.run() ExStateControl.shutdown");
 		
 		// Starting threads to get proxies 
 		int cntGetProxyUrls = Settings.GetProxyUrls.size();
@@ -79,17 +81,20 @@ public final class jGetFreeProxyList {
         for(int i = 0; i < cntGetProxyUrls; i++){
             this.ExGetProxy.submit(new GetProxy(this));
         }
-
-        this.ExGetProxy.shutdown();
+		
+		System.out.println("jGetFreeProxyList.jGetFreeProxyList.run() ExGetProxy.shutdown");
 
 		// Await until all GetProxy threads will ended
-        this.ExGetProxy.awaitTermination(10, TimeUnit.SECONDS);
+        this.ExGetProxy.awaitTermination(Settings.AwaitGetProxy, TimeUnit.SECONDS);
+		this.ExGetProxy.shutdown();
+		
+		System.out.println("jGetFreeProxyList.jGetFreeProxyList.run() ExGetProxy.shutdownNow");
 		
 		// If if there is alaliable proxies to test
-		if (0 == this.RawProxies.size()) {
-			this.ExStateControl.shutdown();
-			throw new RuntimeException("There is no proxies were found for test");
-		}
+//		if (0 == this.RawProxies.size()) {
+//			this.ExStateControl.shutdownNow();
+//			throw new RuntimeException("There is no proxies were found for test");
+//		}
 		
 		// Start QueueProducer
 //		this.ExQueueProducer = Executors.newSingleThreadExecutor();
@@ -105,13 +110,14 @@ public final class jGetFreeProxyList {
 //        this.ExTestProxy.shutdown();
 //		this.ExQueueProducer.shutdown();
 		
-        this.ExStateControl.shutdownNow();
-        futureExStateControl.cancel(true);
+		this.ExStateControl.shutdown();
+
+		System.out.println("jGetFreeProxyList.jGetFreeProxyList.run() ExStateControl shutdownNow");
 
 		// Await until all TestProxy threads and QueueProducer will ended
-//		this.ExTestProxy.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
-//		this.ExQueueProducer.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
-		this.ExStateControl.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+//		this.ExTestProxy.awaitTermination(Settings.AwaitTestProxy, TimeUnit.SECONDS);
+//		this.ExQueueProducer.awaitTermination(Settings.AwaitTestProxy, TimeUnit.SECONDS);
+//		this.ExStateControl.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
 		
 		this.jGetFreeProxyListListener.process(100, 100);
 		this.jGetFreeProxyListListener.done(new ArrayList<ProxyItem>(this.TestedProxies.values()));
@@ -170,6 +176,7 @@ public final class jGetFreeProxyList {
         max = Math.abs(max);
         now = Math.abs(now);
         
+		if (0 == max) return 0;
         if (now >= max) return 100;
         
         // mean max was multiply to 100
