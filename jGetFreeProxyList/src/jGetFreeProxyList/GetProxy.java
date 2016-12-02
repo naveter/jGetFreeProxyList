@@ -20,7 +20,7 @@ public class GetProxy extends WorkThread {
 	
 	@Override
     public void run() {
-        System.out.println("StateControl.run() begin");
+        System.out.println("GetProxy.run() begin");
         
         try {
             java.util.Random randomGenerator = new java.util.Random();
@@ -31,7 +31,7 @@ public class GetProxy extends WorkThread {
         }
         
         this.Main.GetProxyCounter.incrementAndGet();
-        System.out.println("StateControl.run() end");
+        System.out.println("GetProxy.run() end");
     }
     
     public GetProxy(jGetFreeProxyList parent) {

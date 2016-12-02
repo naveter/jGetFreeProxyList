@@ -27,7 +27,7 @@ public class Settings {
     public static ArrayList<java.net.URL>  TestByUrls = new ArrayList<>();
 	
 	/**
-	 * List of public urls, when possible to find proxies.
+	 * List of public urls, where possible to find proxies.
 	 * Pay attention, now it works only for format IP:port. 
 	 * That means, in received HTML pages parser will locking for strings like 80.128.34.22:80
 	 */
@@ -35,6 +35,12 @@ public class Settings {
 	
 	// How much threads have to be for test proxies
     public static int AmountThreads = 5;
+	
+	// How long await end of work GetProxy threads
+	public static int AwaitGetProxy = 20;
+	
+	// How long await end of work TestProxy threads
+	public static int AwaitTestProxy = 600;
 	
 	static {
 		// Fill statements by default
