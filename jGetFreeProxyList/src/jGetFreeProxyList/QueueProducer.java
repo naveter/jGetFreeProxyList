@@ -23,19 +23,20 @@ import java.util.Set;
 public class QueueProducer extends WorkThread {
 	@Override
     public void run() {        
-        System.out.println("jGetFreeProxyList.QueueProducer.run() started");
+        System.out.println("QueueProducer started");
         
         for(ProxyItem pi : this.Main.RawProxies.values()){
             try {
                 this.Main.ProxiesQueue.put(pi);
-                System.out.println("put " + pi.toString());
             }
             catch(InterruptedException e) {
                 
             }
+            
+            System.out.println("QueueProducer put " + pi.toString());
         }
         
-        System.out.println("jGetFreeProxyList.QueueProducer.run() stopped");
+        System.out.println("QueueProducer stopped");
     }
     
     public QueueProducer(jGetFreeProxyList parent) {

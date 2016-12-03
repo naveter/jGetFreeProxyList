@@ -11,6 +11,8 @@
  */
 package jGetFreeProxyList;
 
+import java.util.Calendar;
+import java.util.TimeZone;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -54,6 +56,15 @@ public class jGetFreeProxyListTest {
         assertEquals(25, jGetFreeProxyList.calcPercentage(36, 9));
         assertEquals(1, jGetFreeProxyList.calcPercentage(-100, 1));
         assertEquals(1, jGetFreeProxyList.calcPercentage(100, -1));
+    }
+    
+    @Test
+    public void testGetTimezone(){
+        TimeZone tz = Calendar.getInstance().getTimeZone();
+        System.out.println(tz.getDisplayName()); // (i.e. Moscow Standard Time)
+        System.out.println(tz.getID()); // (i.e. Europe/Moscow)
+        
+        System.out.println(Settings.GetProxyUrls.get(0).Url.toString());
     }
     
 }

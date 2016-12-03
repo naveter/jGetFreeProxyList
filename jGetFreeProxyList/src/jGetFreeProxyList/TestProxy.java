@@ -11,6 +11,7 @@
  */
 package jGetFreeProxyList;
 
+import hirondelle.date4j.DateTime;
 import jGetFreeProxyList.jGetFreeProxyList;
 import java.util.concurrent.TimeUnit;
 
@@ -22,16 +23,31 @@ public class TestProxy extends WorkThread {
 	
 	@Override
     public void run() {
-        while(!this.Main.ProxiesQueue.isEmpty()) {
+        
+        System.out.println("TestProxy started");
+        
+        while(true) {
             this.Main.TestProxyCounter.getAndIncrement();
 
             try {
                 ProxyItem pi = this.Main.ProxiesQueue.poll(100, TimeUnit.MILLISECONDS);
+                if (null == pi) break;
+                
+                System.out.println("TestProxy got "+ pi.toString());
+                
+                java.util.Random randomGenerator = new java.util.Random();
+                Thread.sleep(randomGenerator.nextInt(100)*100);
+                
+                pi.LastChecked = DateTime.now(Settings.TimeZone);
+                pi.RespondSeconds = 1;
+                this.Main.TestedProxies.addIfAbsent(pi);
             }
             catch(InterruptedException e) {
 
             }
         }
+        
+        System.out.println("TestProxy stopped");
     }
     
     public TestProxy(jGetFreeProxyList parent) {
