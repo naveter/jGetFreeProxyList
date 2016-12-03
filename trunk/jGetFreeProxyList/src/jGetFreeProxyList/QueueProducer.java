@@ -12,6 +12,8 @@
 package jGetFreeProxyList;
 
 import jGetFreeProxyList.jGetFreeProxyList;
+import java.util.Map;
+import java.util.Set;
 
 
 
@@ -20,8 +22,20 @@ import jGetFreeProxyList.jGetFreeProxyList;
 **/
 public class QueueProducer extends WorkThread {
 	@Override
-    public void run() {
-    
+    public void run() {        
+        System.out.println("jGetFreeProxyList.QueueProducer.run() started");
+        
+        for(ProxyItem pi : this.Main.RawProxies.values()){
+            try {
+                this.Main.ProxiesQueue.put(pi);
+                System.out.println("put " + pi.toString());
+            }
+            catch(InterruptedException e) {
+                
+            }
+        }
+        
+        System.out.println("jGetFreeProxyList.QueueProducer.run() stopped");
     }
     
     public QueueProducer(jGetFreeProxyList parent) {
