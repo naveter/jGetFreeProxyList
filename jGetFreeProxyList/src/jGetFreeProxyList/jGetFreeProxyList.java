@@ -136,7 +136,7 @@ public final class jGetFreeProxyList {
 		// Starting threads to test proxies 
 		this.ExTestProxy = Executors.newFixedThreadPool(Settings.AmountThreads);
         for(int i = 0; i < Settings.AmountThreads; i++){
-            this.ExTestProxy.submit(new GetProxy(this));
+            this.ExTestProxy.submit(new TestProxy(this));
         }
 		
 		System.out.println("jGetFreeProxyList.jGetFreeProxyList.run() TestProxy started");

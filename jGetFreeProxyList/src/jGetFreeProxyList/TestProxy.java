@@ -12,6 +12,7 @@
 package jGetFreeProxyList;
 
 import jGetFreeProxyList.jGetFreeProxyList;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -21,7 +22,16 @@ public class TestProxy extends WorkThread {
 	
 	@Override
     public void run() {
-    
+        while(!this.Main.ProxiesQueue.isEmpty()) {
+            this.Main.TestProxyCounter.getAndIncrement();
+
+            try {
+                ProxyItem pi = this.Main.ProxiesQueue.poll(100, TimeUnit.MILLISECONDS);
+            }
+            catch(InterruptedException e) {
+
+            }
+        }
     }
     
     public TestProxy(jGetFreeProxyList parent) {
