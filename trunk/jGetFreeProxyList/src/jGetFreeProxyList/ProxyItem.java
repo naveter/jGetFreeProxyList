@@ -20,7 +20,19 @@ import java.net.InetAddress;
 public class ProxyItem {
     public InetAddress Ip;
     public int Port;
+    
+	/**
+	 * How much second wait answer in last test time
+	 */
+    public int RespondSeconds;
 	
+    public DateTime LastChecked;
+    
+	/**
+     * 
+     * @param ip
+     * @param port 
+     */
 	public ProxyItem(InetAddress ip, int port){
 		if (null == ip || port <= 0) {
 			throw new RuntimeException("IP or host is not valid");
@@ -31,13 +43,6 @@ public class ProxyItem {
 	}
 	
 	/**
-	 * How much second wait answer in last test time
-	 */
-    public int RespondSeconds;
-	
-    public DateTime LastChecked;
-	
-	/**
 	 * Return true if LastChecked is filled
 	 * @return 
 	 */
@@ -46,6 +51,6 @@ public class ProxyItem {
     }
     
     public String toString() {
-		return this.Ip.toString() + ":" + Integer.toString(this.Port);
+		return this.Ip.getHostAddress() + ":" + Integer.toString(this.Port);
     }
 }

@@ -30,7 +30,7 @@ import org.apache.commons.lang3.StringUtils;
 public final class jGetFreeProxyList {
 	
 	// Queue for threads to test proxies
-    ArrayBlockingQueue<ProxyItem> ProxiesQueue;
+    ArrayBlockingQueue<ProxyItem> ProxiesQueue = new ArrayBlockingQueue(Settings.CapacityProxiesQueue);
 	
 	// Map of unique non tested proxies
     ConcurrentHashMap<String, ProxyItem> RawProxies = new ConcurrentHashMap<>();
@@ -41,7 +41,7 @@ public final class jGetFreeProxyList {
 	// Counter of ended GetProxy threads 
     AtomicInteger GetProxyCounter = new AtomicInteger(0);
     
-    // Counter of ended TestProxy threads
+    // Counter of ended tests of proxy in TestProxy
     AtomicInteger TestProxyCounter = new AtomicInteger(0);
 	
 	// Proxies that tested already
@@ -72,15 +72,13 @@ public final class jGetFreeProxyList {
 		// Start StateControl
 		this.ExStateControl = Executors.newSingleThreadExecutor();
 		Future<?> futureExStateControl = this.ExStateControl.submit(new StateControl(this));
-        
-		System.out.println("jGetFreeProxyList.jGetFreeProxyList.run() created StateControl");
-		
+        		
 		// Starting threads to get proxies 
 		int cntGetProxyUrls = Settings.GetProxyUrls.size();
 		this.ExGetProxy = Executors.newFixedThreadPool(cntGetProxyUrls);
 		
         for(int i = 0; i < cntGetProxyUrls; i++){
-            this.ExGetProxy.submit(new GetProxy(this));
+            this.ExGetProxy.submit(new GetProxy(this, Settings.GetProxyUrls.get(i)));
         }
 		
 		System.out.println("jGetFreeProxyList.jGetFreeProxyList.run() created ExGetProxy");
@@ -130,17 +128,13 @@ public final class jGetFreeProxyList {
 		// Start QueueProducer
 		this.ExQueueProducer = Executors.newSingleThreadExecutor();
 		Future<?> futureExQueueProducer = this.ExQueueProducer.submit(new QueueProducer(this));
-		
-		System.out.println("jGetFreeProxyList.jGetFreeProxyList.run() QueueProducer started");
-		
+				
 		// Starting threads to test proxies 
 		this.ExTestProxy = Executors.newFixedThreadPool(Settings.AmountThreads);
         for(int i = 0; i < Settings.AmountThreads; i++){
             this.ExTestProxy.submit(new TestProxy(this));
         }
 		
-		System.out.println("jGetFreeProxyList.jGetFreeProxyList.run() TestProxy started");
-
         this.ExTestProxy.shutdown();
 		this.ExQueueProducer.shutdown();
 		

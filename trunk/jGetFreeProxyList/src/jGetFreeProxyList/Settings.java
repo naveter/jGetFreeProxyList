@@ -13,7 +13,10 @@ package jGetFreeProxyList;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.TimeZone;
 
 /**
  * Class contain settings for library. Can be adjusted by consumer.
@@ -36,15 +39,29 @@ public class Settings {
 	// How much threads have to be for test proxies
     public static int AmountThreads = 5;
 	
-	// How long await end of work GetProxy threads
+	// How long await end of work GetProxy threads, in seconds
 	public static int AwaitGetProxy = 20;
 	
-	// How long await end of work TestProxy threads
+	// How long await end of work TestProxy threads, in seconds
 	public static int AwaitTestProxy = 600;
+    
+    // Capacity of ProxiesQueue
+    public static int CapacityProxiesQueue = 5;
+    
+    // TimeZone for current mashine
+    public static TimeZone TimeZone = Calendar.getInstance().getTimeZone();
+    
+    // How long await to load pages with proxies lists, in seconds
+    public static int URLConnectionTimeOut = 5;
 	
 	static {
 		// Fill statements by default
 		try {
+            
+            TimeZone tz = Calendar.getInstance().getTimeZone();
+            System.out.println(tz.getDisplayName()); // (i.e. Moscow Standard Time)
+            System.out.println(tz.getID()); // (i.e. Europe/Moscow)
+            
 			TestByUrls.add(new URL("https://google.com"));
 			TestByUrls.add(new URL("https://www.amazon.com/"));
 			TestByUrls.add(new URL("https://www.facebook.com/"));
