@@ -60,7 +60,7 @@ public class GetProxy extends WorkThread {
             }
         }
         catch(Exception e) {
-            
+            System.out.println(e.getMessage());
         }
         
         this.Main.GetProxyCounter.incrementAndGet();

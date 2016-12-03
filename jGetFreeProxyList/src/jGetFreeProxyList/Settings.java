@@ -52,7 +52,7 @@ public class Settings {
     public static TimeZone TimeZone = Calendar.getInstance().getTimeZone();
     
     // How long await to load pages with proxies lists, in seconds
-    public static int URLConnectionTimeOut = 5;
+    public static int URLConnectionTimeOut = 50;
 	
 	static {
 		// Fill statements by default
