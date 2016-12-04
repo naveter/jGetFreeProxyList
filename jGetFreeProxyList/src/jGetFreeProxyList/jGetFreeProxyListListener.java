@@ -30,8 +30,9 @@ public interface jGetFreeProxyListListener {
 	/**
 	 * Will call when all work is done. Give ArrayList<ProxyItem> of tested proxies.
 	 * 
-	 * @param testedProxies 
+	 * @param testedProxies - list of tested proxies
+     * @param errors - structure of errors. <code>null</code> if was no errors.
 	 */
-    public void done(ArrayList<ProxyItem> testedProxies);
+    public void done(ArrayList<ProxyItem> testedProxies, WorkErrors errors);
 	
 }

@@ -24,9 +24,9 @@ public class ProxyItem {
 	/**
 	 * How much second wait answer in last test time
 	 */
-    public int RespondSeconds;
+    public long RespondMilliSeconds;
 	
-    public DateTime LastChecked;
+    public DateTime LastChecked = null;
     
 	/**
      * 
@@ -47,7 +47,7 @@ public class ProxyItem {
 	 * @return 
 	 */
     public boolean isChecked() {
-		return true;
+		return (null != this.LastChecked);
     }
     
     public String toString() {

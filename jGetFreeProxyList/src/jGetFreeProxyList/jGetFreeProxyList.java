@@ -22,6 +22,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -46,6 +47,9 @@ public final class jGetFreeProxyList {
 	
 	// Proxies that tested already
     CopyOnWriteArrayList<ProxyItem> TestedProxies = new CopyOnWriteArrayList<>();
+    
+    // Collection of errors
+    AtomicReference<WorkErrors> WorkErrors = new AtomicReference<>(new WorkErrors());
 	
 	// Executors for threads
 	ExecutorService ExStateControl;
@@ -89,71 +93,47 @@ public final class jGetFreeProxyList {
 		
 		
 		System.out.println("jGetFreeProxyList.jGetFreeProxyList.run() ExGetProxy.shutdown");
+
+		// If if there is alaliable proxies to test
+		if (0 == this.RawProxies.size()) {
+			this.ExStateControl.shutdown();
+			this.jGetFreeProxyListListener.process(0, 0);
+			this.jGetFreeProxyListListener.done(new ArrayList<ProxyItem>(),this.WorkErrors.get().get());
+			
+			throw new RuntimeException("There is no proxies were found for test");
+		}
 		
-//		try {
-//			ProxyItem pi1 = new ProxyItem(InetAddress.getByName("119.46.110.17"), 8080);
-//			this.RawProxies.putIfAbsent(pi1.toString(), pi1);
-//			ProxyItem pi2 = new ProxyItem(InetAddress.getByName("106.3.40.249"),8081);
-//			this.RawProxies.putIfAbsent(pi2.toString(), pi2);
-//			ProxyItem pi3 = new ProxyItem(InetAddress.getByName("109.87.146.155"),80);
-//			this.RawProxies.putIfAbsent(pi3.toString(), pi3);
-//			ProxyItem pi4 = new ProxyItem(InetAddress.getByName("112.95.241.76"),80);
-//			this.RawProxies.putIfAbsent(pi4.toString(), pi4);
-//			ProxyItem pi5 = new ProxyItem(InetAddress.getByName("114.80.136.112"),7780);
-//			this.RawProxies.putIfAbsent(pi5.toString(), pi5);
-//			ProxyItem pi6 = new ProxyItem(InetAddress.getByName("115.28.213.143"),8000);
-//			this.RawProxies.putIfAbsent(pi6.toString(), pi6);
-//			ProxyItem pi7 = new ProxyItem(InetAddress.getByName("116.213.211.130"),80);
-//			this.RawProxies.putIfAbsent(pi7.toString(), pi7);
-//			ProxyItem pi8 = new ProxyItem(InetAddress.getByName("117.59.217.236"),843);
-//			this.RawProxies.putIfAbsent(pi8.toString(), pi8);
-//			ProxyItem pi9 = new ProxyItem(InetAddress.getByName("209.97.203.60"),8080);
-//			this.RawProxies.putIfAbsent(pi9.toString(), pi9);
-//			ProxyItem pi10 = new ProxyItem(InetAddress.getByName("209.97.203.64"),8080);
-//			this.RawProxies.putIfAbsent(pi10.toString(), pi10);
-//		}
-//		catch(UnknownHostException e) {
-//			
-//		}
-//		
-//		// If if there is alaliable proxies to test
-//		if (0 == this.RawProxies.size()) {
-//			this.ExStateControl.shutdown();
-//			this.jGetFreeProxyListListener.process(0, 0);
-//			this.jGetFreeProxyListListener.done(new ArrayList<ProxyItem>());
-//			
-//			throw new RuntimeException("There is no proxies were found for test");
-//		}
-//		
-//		// Start QueueProducer
-//		this.ExQueueProducer = Executors.newSingleThreadExecutor();
-//		Future<?> futureExQueueProducer = this.ExQueueProducer.submit(new QueueProducer(this));
-//				
-//		// Starting threads to test proxies 
-//		this.ExTestProxy = Executors.newFixedThreadPool(Settings.AmountThreads);
-//        for(int i = 0; i < Settings.AmountThreads; i++){
-//            this.ExTestProxy.submit(new TestProxy(this));
-//        }
-//		
-//        this.ExTestProxy.shutdown();
-//		this.ExQueueProducer.shutdown();
-//		
-//		System.out.println("jGetFreeProxyList.jGetFreeProxyList.run() Await TestProxy and QueueProducer");
-//		
-//		// Await until all TestProxy threads and QueueProducer will ended
-//		this.ExTestProxy.awaitTermination(Settings.AwaitTestProxy, TimeUnit.SECONDS);
-//		this.ExQueueProducer.awaitTermination(Settings.AwaitTestProxy, TimeUnit.SECONDS);
-//		
-//		System.out.println("jGetFreeProxyList.jGetFreeProxyList.run() TestProxy and QueueProducer are stopped");
-//		
+		// Start QueueProducer
+		this.ExQueueProducer = Executors.newSingleThreadExecutor();
+		Future<?> futureExQueueProducer = this.ExQueueProducer.submit(new QueueProducer(this));
+				
+		// Starting threads to test proxies 
+		this.ExTestProxy = Executors.newFixedThreadPool(Settings.AmountThreads);
+        for(int i = 0; i < Settings.AmountThreads; i++){
+            this.ExTestProxy.submit(new TestProxy(this));
+        }
+		
+        this.ExTestProxy.shutdown();
+		this.ExQueueProducer.shutdown();
+		
+		System.out.println("jGetFreeProxyList.jGetFreeProxyList.run() Await TestProxy and QueueProducer");
+		
+		// Await until all TestProxy threads and QueueProducer will ended
+		this.ExTestProxy.awaitTermination(Settings.AwaitTestProxy, TimeUnit.SECONDS);
+		this.ExQueueProducer.awaitTermination(Settings.AwaitTestProxy, TimeUnit.SECONDS);
+		
+		System.out.println("jGetFreeProxyList.jGetFreeProxyList.run() TestProxy and QueueProducer are stopped");
+		
 		// Stop StateControl
 		this.ExStateControl.shutdown();
 
 		System.out.println("jGetFreeProxyList.jGetFreeProxyList.run() ExStateControl shutdownNow");
 		
 		this.jGetFreeProxyListListener.process(100, 100);
-//		this.jGetFreeProxyListListener.done(new ArrayList<ProxyItem>(this.TestedProxies));
-        this.jGetFreeProxyListListener.done(new ArrayList<ProxyItem>(this.RawProxies.values()));
+		this.jGetFreeProxyListListener.done(
+            new ArrayList<ProxyItem>(this.TestedProxies), this.WorkErrors.get().get()
+        );
+//        this.jGetFreeProxyListListener.done(new ArrayList<ProxyItem>(this.RawProxies.values()), this.WorkErrors.get().get());
 		
     }
     
@@ -182,8 +162,14 @@ public final class jGetFreeProxyList {
                     System.out.println(".process():" + getProxyPerc + ":" + testProxyPerc);
 				}
 				@Override
-				public void done(ArrayList<ProxyItem> testedProxies){
+				public void done(ArrayList<ProxyItem> testedProxies, WorkErrors errors){
                     System.out.println(".done(): " + StringUtils.join(testedProxies, ", "));
+                    
+                    if (!errors.WithoutProxies.isEmpty()){
+                        System.out.println(
+                            ".errors.WithoutProxies: " + StringUtils.join(errors.WithoutProxies, ", ")
+                        );
+                    }
                    
 				}
 			}
