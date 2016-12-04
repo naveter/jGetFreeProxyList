@@ -36,51 +36,60 @@ public class Settings {
 	 */
     public static ArrayList<InfoUrl> GetProxyUrls = new ArrayList<>();
 	
-	// How much threads have to be for test proxies
-    public static int AmountThreads = 5;
+	/**
+     * How much threads have to be for test proxies
+     */
+    public static int AmountThreads = 50;
 	
-	// How long await end of work GetProxy threads, in seconds
+	/**
+     * How long await end of work GetProxy threads, in seconds
+     */
 	public static int AwaitGetProxy = 20;
 	
-	// How long await end of work TestProxy threads, in seconds
+	/**
+     * How long await end of work TestProxy threads, in seconds
+     */
 	public static int AwaitTestProxy = 600;
     
-    // Capacity of ProxiesQueue
-    public static int CapacityProxiesQueue = 5;
+    /**
+     * Capacity of ProxiesQueue, must be equals or greater than AmountThreads
+     */
+    public static int CapacityProxiesQueue = 50;
     
-    // TimeZone for current mashine
+    /**
+     * TimeZone for current mashine
+     */
     public static TimeZone TimeZone = Calendar.getInstance().getTimeZone();
     
-    // How long await when connect to URL, in seconds
+    /**
+     * How long await when connect to URL, in seconds
+     */
     public static int URLConnectionTimeOut = 5;
 	
 	static {
 		// Fill statements by default
 		try {
                         
-			TestByUrls.add(new URL("https://google.com"));
-			TestByUrls.add(new URL("https://www.amazon.com/"));
-			TestByUrls.add(new URL("https://www.facebook.com/"));
+			TestByUrls.add(new URL("http://google.com"));
+			TestByUrls.add(new URL("http://www.amazon.com/"));
+			TestByUrls.add(new URL("http://www.facebook.com/"));
 			TestByUrls.add(new URL("http://edition.cnn.com/"));
 			TestByUrls.add(new URL("http://www.bbc.com/news"));
 			
             GetProxyUrls.add(
                 new InfoUrl(new URL("http://awmproxy.com/freeproxy.php"))
             );
-//			GetProxyUrls.add(
-//                new InfoUrl(new URL("http://www.prime-speed.ru/proxy/free-proxy-list/all-working-proxies.php"))
-//            );
-			GetProxyUrls.add(new InfoUrl(new URL("https://proxy-list.org/russian/index.php")));
+            
+            // Too big list
+//			GetProxyUrls.add(new InfoUrl(
+//                new URL("http://www.prime-speed.ru/proxy/free-proxy-list/all-working-proxies.php")
+//            ));
 			GetProxyUrls.add(new InfoUrl(new URL("http://samair.ru/proxy/")));
 			GetProxyUrls.add(new InfoUrl(new URL("http://proxydb.net/")));
 			GetProxyUrls.add(
                 new InfoUrl(new URL("http://www.atomintersoft.com/products/alive-proxy/proxy-list"))
             );
             
-			// TODO: test in future
-			// GetProxyUrls.add(new InfoUrl(new URL("http://www.freeproxy.ru/download/lists/goodproxy.txt")));
-			 
-		
 		}
 		catch(MalformedURLException e) {
 			// With that urls it is impossible

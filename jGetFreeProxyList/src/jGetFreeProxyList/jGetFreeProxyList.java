@@ -84,16 +84,11 @@ public final class jGetFreeProxyList {
         for(int i = 0; i < cntGetProxyUrls; i++){
             this.ExGetProxy.submit(new GetProxy(this, Settings.GetProxyUrls.get(i)));
         }
-		
-		System.out.println("jGetFreeProxyList.jGetFreeProxyList.run() created ExGetProxy");
 
 		// Await until all GetProxy threads will ended
 		this.ExGetProxy.shutdown();
         this.ExGetProxy.awaitTermination(Settings.AwaitGetProxy, TimeUnit.SECONDS);
 		
-		
-		System.out.println("jGetFreeProxyList.jGetFreeProxyList.run() ExGetProxy.shutdown");
-
 		// If if there is alaliable proxies to test
 		if (0 == this.RawProxies.size()) {
 			this.ExStateControl.shutdown();
@@ -116,24 +111,17 @@ public final class jGetFreeProxyList {
         this.ExTestProxy.shutdown();
 		this.ExQueueProducer.shutdown();
 		
-		System.out.println("jGetFreeProxyList.jGetFreeProxyList.run() Await TestProxy and QueueProducer");
-		
 		// Await until all TestProxy threads and QueueProducer will ended
 		this.ExTestProxy.awaitTermination(Settings.AwaitTestProxy, TimeUnit.SECONDS);
 		this.ExQueueProducer.awaitTermination(Settings.AwaitTestProxy, TimeUnit.SECONDS);
-		
-		System.out.println("jGetFreeProxyList.jGetFreeProxyList.run() TestProxy and QueueProducer are stopped");
-		
+				
 		// Stop StateControl
 		this.ExStateControl.shutdown();
 
-		System.out.println("jGetFreeProxyList.jGetFreeProxyList.run() ExStateControl shutdownNow");
-		
 		this.jGetFreeProxyListListener.process(100, 100);
 		this.jGetFreeProxyListListener.done(
             new ArrayList<ProxyItem>(this.TestedProxies), this.WorkErrors.get().get()
         );
-//        this.jGetFreeProxyListListener.done(new ArrayList<ProxyItem>(this.RawProxies.values()), this.WorkErrors.get().get());
 		
     }
     
@@ -165,7 +153,7 @@ public final class jGetFreeProxyList {
 				public void done(ArrayList<ProxyItem> testedProxies, WorkErrors errors){
                     System.out.println(".done(): " + StringUtils.join(testedProxies, ", "));
                     
-                    if (!errors.WithoutProxies.isEmpty()){
+                    if (null != errors && !errors.WithoutProxies.isEmpty()){
                         System.out.println(
                             ".errors.WithoutProxies: " + StringUtils.join(errors.WithoutProxies, ", ")
                         );
