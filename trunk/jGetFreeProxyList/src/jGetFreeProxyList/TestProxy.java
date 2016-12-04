@@ -31,8 +31,6 @@ public class TestProxy extends WorkThread {
 	@Override
     public void run() {
         
-        System.out.println("TestProxy started");
-        
         while(true) {
             this.Main.TestProxyCounter.getAndIncrement();
 
@@ -50,7 +48,6 @@ public class TestProxy extends WorkThread {
             pi.RespondMilliSeconds = 0;
             
             try {
-                System.out.println("TestProxy got "+ pi.toString());
                 
                 java.util.Random randomGenerator = new java.util.Random();
                 int index = randomGenerator.nextInt(Settings.TestByUrls.size())-1;
@@ -73,12 +70,10 @@ public class TestProxy extends WorkThread {
                 this.Main.TestedProxies.addIfAbsent(pi);
             }
             catch(Exception e) {
-                System.out.println(pi.toString() + " is bad");
                 continue;
             }
         }
         
-        System.out.println("TestProxy stopped");
     }
     
     public TestProxy(jGetFreeProxyList parent) {

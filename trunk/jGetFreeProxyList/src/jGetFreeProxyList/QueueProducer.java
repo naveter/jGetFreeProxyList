@@ -21,9 +21,9 @@ import java.util.Set;
  * Filler to queue will add task to queue as it will need
 **/
 public class QueueProducer extends WorkThread {
+    
 	@Override
-    public void run() {        
-        System.out.println("QueueProducer started");
+    public void run() {
         
         for(ProxyItem pi : this.Main.RawProxies.values()){
             try {
@@ -32,11 +32,8 @@ public class QueueProducer extends WorkThread {
             catch(InterruptedException e) {
                 
             }
-            
-            System.out.println("QueueProducer put " + pi.toString());
         }
         
-        System.out.println("QueueProducer stopped");
     }
     
     public QueueProducer(jGetFreeProxyList parent) {

@@ -30,13 +30,9 @@ public class GetProxy extends WorkThread {
 	
 	@Override
     public void run() {
-        System.out.println("GetProxy.run() begin");
         int cnt = 0;
         
         try {
-//            java.util.Random randomGenerator = new java.util.Random();
-//            Thread.sleep(randomGenerator.nextInt(100)*100);
-            
             URLConnection connection = new URL( this.InfoUrl.Url.toString() ).openConnection();
             connection.setRequestProperty("Accept-Charset", "UTF-8");
             connection.setReadTimeout((Settings.URLConnectionTimeOut*1000));
@@ -62,7 +58,7 @@ public class GetProxy extends WorkThread {
             }
         }
         catch(Exception e) {
-            System.out.println("Exception " + e.getMessage());
+            
         }
         
         this.Main.GetProxyCounter.incrementAndGet();
@@ -72,7 +68,6 @@ public class GetProxy extends WorkThread {
             this.Main.WorkErrors.get().WithoutProxies.add(this.InfoUrl);
         }
         
-        System.out.println("GetProxy.run() end ("+ cnt +")"+ this.InfoUrl.Url.getHost());
     }
     
     public GetProxy(jGetFreeProxyList parent, InfoUrl url) {

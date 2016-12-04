@@ -23,8 +23,6 @@ public class StateControl extends WorkThread {
 	@Override
     public void run() {
 		
-		System.out.println("jGetFreeProxyList.StateControl.run() started");
-		
 		// Thread will finish when main thread shutdown it
         while(!this.Main.ExStateControl.isShutdown()) {
 			
@@ -46,8 +44,6 @@ public class StateControl extends WorkThread {
 				this.Main.jGetFreeProxyListListener.process(percGetProxy, percTestProxy);
 			}
         }
-		
-		System.out.println("jGetFreeProxyList.StateControl.run() ended");
 		
     }
     
