@@ -31,4 +31,8 @@ public class InfoUrl {
 		this.Url = url;
     }
 	
+    @Override
+    public String toString(){
+        return this.Url.getHost();
+    }
 }

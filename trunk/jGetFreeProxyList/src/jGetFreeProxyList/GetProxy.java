@@ -31,6 +31,7 @@ public class GetProxy extends WorkThread {
 	@Override
     public void run() {
         System.out.println("GetProxy.run() begin");
+        int cnt = 0;
         
         try {
 //            java.util.Random randomGenerator = new java.util.Random();
@@ -38,12 +39,12 @@ public class GetProxy extends WorkThread {
             
             URLConnection connection = new URL( this.InfoUrl.Url.toString() ).openConnection();
             connection.setRequestProperty("Accept-Charset", "UTF-8");
-            connection.setReadTimeout(Settings.URLConnectionTimeOut*1000);
+            connection.setReadTimeout((Settings.URLConnectionTimeOut*1000));
             InputStream response = connection.getInputStream();
 
             String result = "";
             try (Scanner scanner = new Scanner(response)) {
-                result += scanner.useDelimiter("\\n").next();
+                result += scanner.useDelimiter("\\a").next();
             }
 
             int flags = Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE;			
@@ -56,15 +57,22 @@ public class GetProxy extends WorkThread {
                         InetAddress.getByName(m.group(1)), Integer.decode(m.group(2))
                     );
                     this.Main.RawProxies.putIfAbsent(pi.toString(), pi );
+                    cnt++;
                 }
             }
         }
         catch(Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Exception " + e.getMessage());
         }
         
         this.Main.GetProxyCounter.incrementAndGet();
-        System.out.println("GetProxy.run() end");
+        
+        // No proxies was found
+        if(0 == cnt) {
+            this.Main.WorkErrors.get().WithoutProxies.add(this.InfoUrl);
+        }
+        
+        System.out.println("GetProxy.run() end ("+ cnt +")"+ this.InfoUrl.Url.getHost());
     }
     
     public GetProxy(jGetFreeProxyList parent, InfoUrl url) {

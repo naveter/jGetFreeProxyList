@@ -60,11 +60,11 @@ public class jGetFreeProxyListTest {
     
     @Test
     public void testGetTimezone(){
-        TimeZone tz = Calendar.getInstance().getTimeZone();
-        System.out.println(tz.getDisplayName()); // (i.e. Moscow Standard Time)
-        System.out.println(tz.getID()); // (i.e. Europe/Moscow)
-        
-        System.out.println(Settings.GetProxyUrls.get(0).Url.toString());
+//        TimeZone tz = Calendar.getInstance().getTimeZone();
+//        System.out.println(tz.getDisplayName()); // (i.e. Moscow Standard Time)
+//        System.out.println(tz.getID()); // (i.e. Europe/Moscow)
+//        
+//        System.out.println(Settings.GetProxyUrls.get(0).Url.toString());
     }
     
 }

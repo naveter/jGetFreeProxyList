@@ -12,7 +12,14 @@
 package jGetFreeProxyList;
 
 import hirondelle.date4j.DateTime;
+import static jGetFreeProxyList.Settings.TestByUrls;
 import jGetFreeProxyList.jGetFreeProxyList;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
+import java.net.URL;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 
@@ -29,21 +36,45 @@ public class TestProxy extends WorkThread {
         while(true) {
             this.Main.TestProxyCounter.getAndIncrement();
 
-            try {
-                ProxyItem pi = this.Main.ProxiesQueue.poll(100, TimeUnit.MILLISECONDS);
+            ProxyItem pi = null;
+            
+            try{
+                pi = this.Main.ProxiesQueue.poll(100, TimeUnit.MILLISECONDS);
                 if (null == pi) break;
-                
+            }
+            catch(InterruptedException e){
+                continue;
+            }
+            
+            pi.LastChecked = null;
+            pi.RespondMilliSeconds = 0;
+            
+            try {
                 System.out.println("TestProxy got "+ pi.toString());
                 
                 java.util.Random randomGenerator = new java.util.Random();
-                Thread.sleep(randomGenerator.nextInt(100)*100);
+                int index = randomGenerator.nextInt(Settings.TestByUrls.size())-1;
+                URL iu = Settings.TestByUrls.get(index);
+                
+                long start_time = System.currentTimeMillis();
+
+                Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(pi.Ip, pi.Port));
+                HttpURLConnection connection =(HttpURLConnection)iu.openConnection(proxy);
+
+                connection.setRequestProperty("Accept-Charset", "UTF-8");
+                connection.setReadTimeout((Settings.URLConnectionTimeOut*1000));
+                InputStream response = connection.getInputStream();
+
+                long end_time = System.currentTimeMillis();
+                long difference = end_time-start_time;
                 
                 pi.LastChecked = DateTime.now(Settings.TimeZone);
-                pi.RespondSeconds = 1;
+                pi.RespondMilliSeconds = difference;
                 this.Main.TestedProxies.addIfAbsent(pi);
             }
-            catch(InterruptedException e) {
-
+            catch(Exception e) {
+                System.out.println(pi.toString() + " is bad");
+                continue;
             }
         }
         
