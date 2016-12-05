@@ -142,35 +142,35 @@ public final class jGetFreeProxyList {
 		}
 	}
 	
-	public static void main(String[] args) {
-		jGetFreeProxyList jGetFreeProxyList = new jGetFreeProxyList(
-			new jGetFreeProxyListListener(){
-				@Override
-				public void process(int getProxyPerc, int testProxyPerc){
-                    System.out.println(".process():" + getProxyPerc + ":" + testProxyPerc);
-				}
-				@Override
-				public void done(ArrayList<ProxyItem> testedProxies, WorkErrors errors){
-                    System.out.println(".done(): " + StringUtils.join(testedProxies, ", "));
-                    
-                    if (null != errors && !errors.WithoutProxies.isEmpty()){
-                        System.out.println(
-                            ".errors.WithoutProxies: " + StringUtils.join(errors.WithoutProxies, ", ")
-                        );
-                    }
-                   
-				}
-			}
-		);
-		
-		try {
-			jGetFreeProxyList.run();
-		}
-		catch(InterruptedException e) {
-			System.out.println(e.getMessage());
-		}
-		
-	}
+//	public static void main(String[] args) {
+//		jGetFreeProxyList jGetFreeProxyList = new jGetFreeProxyList(
+//			new jGetFreeProxyListListener(){
+//				@Override
+//				public void process(int getProxyPerc, int testProxyPerc){
+//                    System.out.println(".process():" + getProxyPerc + ":" + testProxyPerc);
+//				}
+//				@Override
+//				public void done(ArrayList<ProxyItem> testedProxies, WorkErrors errors){
+//                    System.out.println(".done(): " + StringUtils.join(testedProxies, ", "));
+//                    
+//                    if (null != errors && !errors.WithoutProxies.isEmpty()){
+//                        System.out.println(
+//                            ".errors.WithoutProxies: " + StringUtils.join(errors.WithoutProxies, ", ")
+//                        );
+//                    }
+//                   
+//				}
+//			}
+//		);
+//		
+//		try {
+//			jGetFreeProxyList.run();
+//		}
+//		catch(InterruptedException e) {
+//			System.out.println(e.getMessage());
+//		}
+//		
+//	}
     
     /**
      * Calc percentage from given max and current value

@@ -833,7 +833,7 @@ percentage
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
 <XPD:ATTR name="Left" type="integer">540</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">144</XPD:ATTR>
-<XPD:ATTR name="Width" type="integer">135</XPD:ATTR>
+<XPD:ATTR name="Width" type="integer">143</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">121</XPD:ATTR>
 <XPD:REF name="Model">jG29lZxixkuOK1D8BE8joAAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="TaGuCBLY60KFlr825iQROgAA">
@@ -1371,7 +1371,7 @@ percentage
 <XPD:OBJ name="OwnedViews[19]" type="UMLAssociationView" guid="axoHQDFbaEuy8FPQrQqANAAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">540,188;340,141</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">540,187;340,140</XPD:ATTR>
 <XPD:REF name="Model">a7eXrHDcF0yfwR1Yp2qfZwAA</XPD:REF>
 <XPD:REF name="Head">Qpns4os56UCCKLvnqDolZQAA</XPD:REF>
 <XPD:REF name="Tail">0wLyRug/WUSS5lC/nTLm8gAA</XPD:REF>
@@ -1839,7 +1839,7 @@ percentage
 </XPD:OBJ>
 <XPD:OBJ name="Attributes[2]" type="UMLAttribute" guid="vaV0PBN71E6I4Jym4FRTSgAA">
 <XPD:ATTR name="Name" type="string">RespondMilliSeconds</XPD:ATTR>
-<XPD:ATTR name="TypeExpression" type="string">int</XPD:ATTR>
+<XPD:ATTR name="TypeExpression" type="string">long</XPD:ATTR>
 <XPD:REF name="Owner">jG29lZxixkuOK1D8BE8joAAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="Attributes[3]" type="UMLAttribute" guid="SQaUYYi6mEK4c67tFyxBcAAA">
