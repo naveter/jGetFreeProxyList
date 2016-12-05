@@ -23,6 +23,8 @@ import java.util.TimeZone;
  */
 public class Settings {
 	
+	protected static String Version = "1.0";
+	
 	/**
 	 * List of public urls to try to connect with proxies. At least 5.
 	 * Every time them will choose randomly.
@@ -47,7 +49,7 @@ public class Settings {
 	public static int AwaitGetProxy = 20;
 	
 	/**
-     * How long await end of work TestProxy threads, in seconds
+     * How long await end of work TestProxy threads, in seconds.
      */
 	public static int AwaitTestProxy = 600;
     
@@ -95,6 +97,10 @@ public class Settings {
 			// With that urls it is impossible
 		}
 		
+	}
+	
+	public static String getVersion(){
+		return Version;
 	}
 	
 }
