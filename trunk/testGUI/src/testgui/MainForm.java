@@ -228,32 +228,27 @@ public class MainForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartActionPerformed
-//		jGetFreeProxyList jGetFreeProxyList = new jGetFreeProxyList(
-//			new jGetFreeProxyListListener(){
-//				@Override
-//				public void process(int getProxyPerc, int testProxyPerc){
-//                    System.out.println(".process():" + getProxyPerc + ":" + testProxyPerc);
-//				}
-//				@Override
-//				public void done(ArrayList<ProxyItem> testedProxies, WorkErrors errors){
-//                    System.out.println(".done(): " + StringUtils.join(testedProxies, ", "));
-//                    
-//                    if (null != errors && !errors.WithoutProxies.isEmpty()){
-//                        System.out.println(
-//                            ".errors.WithoutProxies: " + StringUtils.join(errors.WithoutProxies, ", ")
-//                        );
-//                    }
-//                   
-//				}
-//			}
-//		);
-//		
-//		try {
-//			jGetFreeProxyList.run();
-//		}
-//		catch(InterruptedException e) {
-//			System.out.println(e.getMessage());
-//		}
+		jGetFreeProxyList jGetFreeProxyList = new jGetFreeProxyList(
+			new jGetFreeProxyListListener(){
+				@Override
+				public void process(int getProxyPerc, int testProxyPerc){
+                    System.out.println(".process():" + getProxyPerc + ":" + testProxyPerc);
+				}
+				@Override
+				public void done(ArrayList<ProxyItem> testedProxies, WorkErrors errors){
+					String str = "";
+					for(ProxyItem s: testedProxies) str += s.toString();
+                    System.out.println(".done(): " + str);
+                    
+                    if (null != errors && !errors.WithoutProxies.isEmpty()){
+						String str2 = "";
+						for(InfoUrl s: errors.WithoutProxies) str += s.toString();
+                        System.out.println(".errors.WithoutProxies: " + str2);
+                    }
+                   
+				}
+			}
+		);
 		
     }//GEN-LAST:event_jButtonStartActionPerformed
 
