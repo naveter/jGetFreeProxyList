@@ -23,7 +23,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
-import org.apache.commons.lang3.StringUtils;
+
 
 /**
  * Utility to get a list of tested free proxies
@@ -142,35 +142,37 @@ public final class jGetFreeProxyList {
 		}
 	}
 	
-//	public static void main(String[] args) {
-//		jGetFreeProxyList jGetFreeProxyList = new jGetFreeProxyList(
-//			new jGetFreeProxyListListener(){
-//				@Override
-//				public void process(int getProxyPerc, int testProxyPerc){
-//                    System.out.println(".process():" + getProxyPerc + ":" + testProxyPerc);
-//				}
-//				@Override
-//				public void done(ArrayList<ProxyItem> testedProxies, WorkErrors errors){
-//                    System.out.println(".done(): " + StringUtils.join(testedProxies, ", "));
-//                    
-//                    if (null != errors && !errors.WithoutProxies.isEmpty()){
-//                        System.out.println(
-//                            ".errors.WithoutProxies: " + StringUtils.join(errors.WithoutProxies, ", ")
-//                        );
-//                    }
-//                   
-//				}
-//			}
-//		);
-//		
-//		try {
-//			jGetFreeProxyList.run();
-//		}
-//		catch(InterruptedException e) {
-//			System.out.println(e.getMessage());
-//		}
-//		
-//	}
+	public static void main(String[] args) {
+		jGetFreeProxyList jGetFreeProxyList = new jGetFreeProxyList(
+			new jGetFreeProxyListListener(){
+				@Override
+				public void process(int getProxyPerc, int testProxyPerc){
+                    System.out.println(".process():" + getProxyPerc + ":" + testProxyPerc);
+				}
+				@Override
+				public void done(ArrayList<ProxyItem> testedProxies, WorkErrors errors){
+					String str = "";
+					for(ProxyItem s: testedProxies) str += s.toString();
+                    System.out.println(".done(): " + str);
+                    
+                    if (null != errors && !errors.WithoutProxies.isEmpty()){
+						String str2 = "";
+						for(InfoUrl s: errors.WithoutProxies) str += s.toString();
+                        System.out.println(".errors.WithoutProxies: " + str2);
+                    }
+                   
+				}
+			}
+		);
+		
+		try {
+			jGetFreeProxyList.run();
+		}
+		catch(InterruptedException e) {
+			System.out.println(e.getMessage());
+		}
+		
+	}
     
     /**
      * Calc percentage from given max and current value
