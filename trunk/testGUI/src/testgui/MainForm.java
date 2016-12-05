@@ -7,6 +7,7 @@ package testgui;
 
 import java.awt.Toolkit;
 import jGetFreeProxyList.*;
+import java.util.ArrayList;
 
 /**
  *
@@ -227,7 +228,33 @@ public class MainForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartActionPerformed
-        // TODO add your handling code here:
+//		jGetFreeProxyList jGetFreeProxyList = new jGetFreeProxyList(
+//			new jGetFreeProxyListListener(){
+//				@Override
+//				public void process(int getProxyPerc, int testProxyPerc){
+//                    System.out.println(".process():" + getProxyPerc + ":" + testProxyPerc);
+//				}
+//				@Override
+//				public void done(ArrayList<ProxyItem> testedProxies, WorkErrors errors){
+//                    System.out.println(".done(): " + StringUtils.join(testedProxies, ", "));
+//                    
+//                    if (null != errors && !errors.WithoutProxies.isEmpty()){
+//                        System.out.println(
+//                            ".errors.WithoutProxies: " + StringUtils.join(errors.WithoutProxies, ", ")
+//                        );
+//                    }
+//                   
+//				}
+//			}
+//		);
+//		
+//		try {
+//			jGetFreeProxyList.run();
+//		}
+//		catch(InterruptedException e) {
+//			System.out.println(e.getMessage());
+//		}
+		
     }//GEN-LAST:event_jButtonStartActionPerformed
 
 	/**
@@ -270,7 +297,6 @@ public class MainForm extends javax.swing.JFrame {
 		
 		// Init form fields
 //		this.jTextAreaTestByUrls.setText();
-		
 		
 	}
 

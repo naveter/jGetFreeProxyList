@@ -41,7 +41,7 @@ public class Settings {
 	/**
      * How much threads have to be for test proxies
      */
-    public static int AmountThreads = 50;
+    public static int AmountThreads = 10;
 	
 	/**
      * How long await end of work GetProxy threads, in seconds
@@ -56,7 +56,7 @@ public class Settings {
     /**
      * Capacity of ProxiesQueue, must be equals or greater than AmountThreads
      */
-    public static int CapacityProxiesQueue = 50;
+    public static int CapacityProxiesQueue = 10;
     
     /**
      * TimeZone for current mashine

@@ -11,7 +11,6 @@
  */
 package jGetFreeProxyList;
 
-import hirondelle.date4j.DateTime;
 import static jGetFreeProxyList.Settings.TestByUrls;
 import jGetFreeProxyList.jGetFreeProxyList;
 import java.io.InputStream;
@@ -19,6 +18,7 @@ import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.net.URL;
+import java.util.Date;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
@@ -65,7 +65,7 @@ public class TestProxy extends WorkThread {
                 long end_time = System.currentTimeMillis();
                 long difference = end_time-start_time;
                 
-                pi.LastChecked = DateTime.now(Settings.TimeZone);
+                pi.LastChecked = new Date();
                 pi.RespondMilliSeconds = difference;
                 this.Main.TestedProxies.addIfAbsent(pi);
             }

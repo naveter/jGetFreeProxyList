@@ -11,8 +11,8 @@
  */
 package jGetFreeProxyList;
 
-import hirondelle.date4j.DateTime;
 import java.net.InetAddress;
+import java.util.Date;
 
 /**
  * Substance wich take care about proxy's item
@@ -26,7 +26,7 @@ public class ProxyItem {
 	 */
     public long RespondMilliSeconds;
 	
-    public DateTime LastChecked = null;
+    public Date LastChecked = null;
     
 	/**
      * 
