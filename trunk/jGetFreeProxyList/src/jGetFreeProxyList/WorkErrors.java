@@ -25,7 +25,7 @@ public class WorkErrors {
     
     /**
      * Check wether any field is filled. Return <code>null</code> if not.
-     * @return 
+     * @return - WorkErrors or null
      */
     public WorkErrors get(){
         if (!this.WithoutProxies.isEmpty()) return this;
