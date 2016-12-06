@@ -32,8 +32,6 @@ public class TestProxy extends WorkThread {
     public void run() {
         
         while(true) {
-            this.Main.TestProxyCounter.getAndIncrement();
-
             ProxyItem pi = null;
             
             try{
@@ -70,8 +68,10 @@ public class TestProxy extends WorkThread {
                 this.Main.TestedProxies.addIfAbsent(pi);
             }
             catch(Exception e) {
-                continue;
+                
             }
+			
+			this.Main.TestProxyCounter.getAndIncrement();
         }
         
     }
