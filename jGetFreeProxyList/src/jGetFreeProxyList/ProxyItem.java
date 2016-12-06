@@ -30,8 +30,8 @@ public class ProxyItem {
     
 	/**
      * 
-     * @param ip
-     * @param port 
+     * @param ip - IP address
+     * @param port - port of host
      */
 	public ProxyItem(InetAddress ip, int port){
 		if (null == ip || port <= 0) {
@@ -44,7 +44,7 @@ public class ProxyItem {
 	
 	/**
 	 * Return true if LastChecked is filled
-	 * @return 
+	 * @return - if checked
 	 */
     public boolean isChecked() {
 		return (null != this.LastChecked);

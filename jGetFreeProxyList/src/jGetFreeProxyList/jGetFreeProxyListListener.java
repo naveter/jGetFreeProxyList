@@ -18,8 +18,10 @@ import java.util.ArrayList;
  */
 public interface jGetFreeProxyListListener {
 	
-	/** Method will cal every second and give a consumer percentage of work, 100 - is 100%.
+	/** 
+	 * Method will cal every second and give a consumer percentage of work, 100 - is 100%.
 	 * To give opportunity to make a process bar or other information things.
+	 * <p>
 	 * Be aware, testProxyPerc will be zero until getProxyPerc became 100.
 	 * 
 	 * @param getProxyPerc - percentage of ask urls with proxies
@@ -28,7 +30,7 @@ public interface jGetFreeProxyListListener {
     public void process(int getProxyPerc, int testProxyPerc);
     
 	/**
-	 * Will call when all work is done. Give ArrayList<ProxyItem> of tested proxies.
+	 * Will call when all work is done. Give <code>ArrayList</code> of tested proxies.
 	 * 
 	 * @param testedProxies - list of tested proxies
      * @param errors - structure of errors. <code>null</code> if it was no errors.
