@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Use in pool of threads to find out whether concrete proxy valid or not
  */
-public class TestProxy extends WorkThread {
+class TestProxy extends WorkThread {
 	
 	@Override
     public void run() {
