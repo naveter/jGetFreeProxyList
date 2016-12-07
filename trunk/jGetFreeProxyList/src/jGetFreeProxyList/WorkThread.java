@@ -16,7 +16,7 @@ import jGetFreeProxyList.jGetFreeProxyList;
 /**
  * Abstract extension for all work threads in this lib
  */
-public abstract class WorkThread implements Runnable {
+abstract class WorkThread implements Runnable {
 	/**
 	 * Instance of main thread
 	 */

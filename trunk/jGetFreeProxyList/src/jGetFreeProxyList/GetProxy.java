@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
 /**
  * Use in pool of threads to find proxies from concrete url
 **/
-public class GetProxy extends WorkThread {
+class GetProxy extends WorkThread {
     
     protected InfoUrl InfoUrl;
 	

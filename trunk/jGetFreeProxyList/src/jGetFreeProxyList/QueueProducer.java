@@ -20,7 +20,7 @@ import java.util.Set;
 /**
  * Filler to queue will add task to queue as it will need
 **/
-public class QueueProducer extends WorkThread {
+class QueueProducer extends WorkThread {
     
 	@Override
     public void run() {

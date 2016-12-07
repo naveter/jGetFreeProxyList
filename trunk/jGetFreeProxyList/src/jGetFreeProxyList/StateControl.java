@@ -17,7 +17,7 @@ import jGetFreeProxyList.jGetFreeProxyList;
 /**
  * Control thread to check state of work and inform consumers
 **/
-public class StateControl extends WorkThread {
+class StateControl extends WorkThread {
 	private static int askPeriod = 1000;
 	
 	@Override
