@@ -2229,6 +2229,7 @@ percentage
 <XPD:OBJ name="OwnedElements[12]" type="UMLClass" guid="EA5N9cunyk2wXNb3CHMnyAAA">
 <XPD:ATTR name="Name" type="string">StateControl</XPD:ATTR>
 <XPD:ATTR name="Documentation" type="string">Control thread to check state of work and inform consumers</XPD:ATTR>
+<XPD:ATTR name="Visibility" type="UMLVisibilityKind">vkPackage</XPD:ATTR>
 <XPD:REF name="Namespace">Tn6TRwtZyk2ZkKDfQW6qrwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">ENaojT83SEiz8kvvUI6YXQAA</XPD:REF>
@@ -2264,6 +2265,7 @@ percentage
 <XPD:OBJ name="OwnedElements[13]" type="UMLClass" guid="jaJaJK3bFEaWXVWxpD35swAA">
 <XPD:ATTR name="Name" type="string">GetProxy</XPD:ATTR>
 <XPD:ATTR name="Documentation" type="string">Use in pool of threads to find proxies from concrete url</XPD:ATTR>
+<XPD:ATTR name="Visibility" type="UMLVisibilityKind">vkPackage</XPD:ATTR>
 <XPD:REF name="Namespace">Tn6TRwtZyk2ZkKDfQW6qrwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">2n7Yebjkj0ehgktRJcht6AAA</XPD:REF>
@@ -2313,6 +2315,7 @@ percentage
 <XPD:OBJ name="OwnedElements[14]" type="UMLClass" guid="VM6pCFDR5EylUlCnZapkJAAA">
 <XPD:ATTR name="Name" type="string">TestProxy</XPD:ATTR>
 <XPD:ATTR name="Documentation" type="string">Use in pool of threads to find out whether concrete proxy valid or not</XPD:ATTR>
+<XPD:ATTR name="Visibility" type="UMLVisibilityKind">vkPackage</XPD:ATTR>
 <XPD:REF name="Namespace">Tn6TRwtZyk2ZkKDfQW6qrwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">vUFiUoWyJUy+P6aGmcvbXAAA</XPD:REF>
@@ -2348,6 +2351,7 @@ percentage
 <XPD:OBJ name="OwnedElements[15]" type="UMLClass" guid="UXU5HEP9JEK4bf5NFIUbjAAA">
 <XPD:ATTR name="Name" type="string">QueueProducer</XPD:ATTR>
 <XPD:ATTR name="Documentation" type="string">Filler to queue will add task to queue as it will need</XPD:ATTR>
+<XPD:ATTR name="Visibility" type="UMLVisibilityKind">vkPackage</XPD:ATTR>
 <XPD:REF name="Namespace">Tn6TRwtZyk2ZkKDfQW6qrwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
 <XPD:REF name="Views[0]">62RYhawTzESBTfAKxXCHLgAA</XPD:REF>
@@ -2657,6 +2661,7 @@ percentage
 </XPD:OBJ>
 <XPD:OBJ name="OwnedElements[29]" type="UMLClass" guid="idZWf9Gf6kOeVh1emK0+zgAA">
 <XPD:ATTR name="Name" type="string">WorkThread</XPD:ATTR>
+<XPD:ATTR name="Visibility" type="UMLVisibilityKind">vkPackage</XPD:ATTR>
 <XPD:ATTR name="IsAbstract" type="boolean">True</XPD:ATTR>
 <XPD:REF name="Namespace">Tn6TRwtZyk2ZkKDfQW6qrwAA</XPD:REF>
 <XPD:ATTR name="#Views" type="integer">4</XPD:ATTR>
