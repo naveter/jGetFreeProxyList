@@ -27,6 +27,8 @@ import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Utility to get a list of tested free proxies
+ * <p>
+ * @see <a href="https://sourceforge.net/p/jgetfreeproxylist/wiki/Home/">See documentation</a>
  * 
  * @version 1.0
  */

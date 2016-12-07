@@ -234,6 +234,9 @@ public class MainForm extends javax.swing.JFrame {
 
     private void jButtonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartActionPerformed
 		
+		// Block Main button
+		this.jButtonStart.setEnabled(false);
+		
 		final jGetFreeProxyList jGetFreeProxyList = new jGetFreeProxyList(
 				
 			// Listener for consumer's communications
@@ -268,7 +271,7 @@ public class MainForm extends javax.swing.JFrame {
 						jTextAreaDone.setText( results.substring(0, results.length() - 1) );
 					}
 					
-					// Print errors if they happen
+					// Print errors if they happend
                     if (null != errors && !errors.WithoutProxies.isEmpty()){
 						StringBuffer results2 = new StringBuffer();
 						results2.append(jTextAreaDone.getText());
@@ -276,6 +279,9 @@ public class MainForm extends javax.swing.JFrame {
                         jTextAreaDone.setText( results2.toString() );
                     }
                    
+					// Unblock Main button
+					jButtonStart.setEnabled(true);
+					
 				}
 			}
 		);
@@ -367,7 +373,7 @@ public class MainForm extends javax.swing.JFrame {
 	}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonStart;
+    public javax.swing.JButton jButtonStart;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

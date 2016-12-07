@@ -26,10 +26,12 @@ public class ProxyItem {
 	 */
     public long RespondMilliSeconds;
 	
+	/** When was last check */
     public Date LastChecked = null;
     
 	/**
-     * 
+     * Constructor
+	 * 
      * @param ip - IP address
      * @param port - port of host
      */
