@@ -19,7 +19,8 @@ public class InfoUrl {
     public java.net.URL Url;
 	
 	/**
-	 * PregMach how to find proxy
+	 * PregMach how to find proxy.
+	 * Now represented as <code>([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3})\\s*:\\s*([0-9]+)</code>
 	 */
     protected String PatternString = "([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3})\\s*:\\s*([0-9]+)";
 	

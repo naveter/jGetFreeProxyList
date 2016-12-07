@@ -26,10 +26,38 @@ import java.util.concurrent.atomic.AtomicReference;
 
 
 /**
- * Utility to get a list of tested free proxies
+ * Utility to get a list of tested free proxies.
  * <p>
- * @see <a href="https://sourceforge.net/p/jgetfreeproxylist/wiki/Home/">See documentation</a>
  * 
+ * How to use:
+ * <pre><code>
+ *jGetFreeProxyList jGetFreeProxyList = new jGetFreeProxyList(
+ *	new jGetFreeProxyListListener(){
+ * 
+ *		// Method will cal every second and give a consumer percentage of work
+ *		public void process(int getProxyPerc, int testProxyPerc){
+ *			
+ *		}
+ * 
+ *		// Will call when all work is done. 
+ *		public void done(ArrayList&lt;ProxyItem&gt; testedProxies, WorkErrors errors){
+ *			
+ *		}
+ *	}
+ *);
+ *
+ *try {
+ * 
+ *  // Run process
+ *	jGetFreeProxyList.run();
+ * 
+ *}
+ *catch(InterruptedException e) {
+ *	System.out.println(e.getMessage());
+ *}
+ * </code></pre>
+ *
+ * @see <a href="https://sourceforge.net/p/jgetfreeproxylist/wiki/Home/">See manual</a>
  * @version 1.0
  */
 public final class jGetFreeProxyList {

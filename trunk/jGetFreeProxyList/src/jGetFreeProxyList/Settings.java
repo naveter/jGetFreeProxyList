@@ -34,7 +34,7 @@ public class Settings {
 	/**
 	 * List of public urls, where possible to find proxies.
 	 * Pay attention, now it works only for format IP:port. 
-	 * That means, in received HTML pages parser will locking for strings like 80.128.34.22:80
+	 * That means, in received HTML pages parser will looking for strings like 80.128.34.22:80
 	 */
     public static ArrayList<InfoUrl> GetProxyUrls = new ArrayList<>();
 	
@@ -72,12 +72,14 @@ public class Settings {
 		// Fill statements by default
 		try {
                         
+			TestByUrls.clear();
 			TestByUrls.add(new URL("http://google.com"));
 			TestByUrls.add(new URL("http://www.amazon.com/"));
 			TestByUrls.add(new URL("http://www.facebook.com/"));
 			TestByUrls.add(new URL("http://edition.cnn.com/"));
 			TestByUrls.add(new URL("http://www.bbc.com/news"));
 			
+			GetProxyUrls.clear();
             GetProxyUrls.add(
                 new InfoUrl(new URL("http://awmproxy.com/freeproxy.php"))
             );

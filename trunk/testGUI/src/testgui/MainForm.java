@@ -236,7 +236,7 @@ public class MainForm extends javax.swing.JFrame {
 		
 		// Block Main button
 		this.jButtonStart.setEnabled(false);
-		
+				
 		final jGetFreeProxyList jGetFreeProxyList = new jGetFreeProxyList(
 				
 			// Listener for consumer's communications

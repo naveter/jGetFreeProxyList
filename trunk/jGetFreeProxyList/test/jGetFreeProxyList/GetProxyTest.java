@@ -11,7 +11,6 @@
  */
 package jGetFreeProxyList;
 
-import hirondelle.date4j.DateTime;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.InetAddress;
