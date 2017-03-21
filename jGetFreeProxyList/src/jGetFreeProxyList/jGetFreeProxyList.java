@@ -122,7 +122,7 @@ public final class jGetFreeProxyList {
 		this.ExGetProxy.shutdown();
         this.ExGetProxy.awaitTermination(Settings.AwaitGetProxy, TimeUnit.SECONDS);
 		
-		// If if there is alaliable proxies to test
+		// If there is alaliable proxies to test
 		if (0 == this.RawProxies.size()) {
 			this.ExStateControl.shutdown();
 			this.jGetFreeProxyListListener.process(0, 0);
