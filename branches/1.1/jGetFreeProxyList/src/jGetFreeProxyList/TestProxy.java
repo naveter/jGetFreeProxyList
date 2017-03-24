@@ -60,6 +60,7 @@ class TestProxy extends WorkThread {
                 HttpURLConnection connection =(HttpURLConnection)iu.openConnection(proxy);
 
                 connection.setRequestProperty("Accept-Charset", "UTF-8");
+                connection.setRequestProperty("User-Agent", Settings.UserAgent);
                 connection.setReadTimeout((Settings.URLConnectionTimeOut*1000));
                 InputStream response = connection.getInputStream();
 

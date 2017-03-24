@@ -31,10 +31,11 @@ class GetProxy extends WorkThread {
 	@Override
     public void run() {
         int cnt = 0;
-        
+                
         try {
-            URLConnection connection = new URL( this.InfoUrl.Url.toString() ).openConnection();
+            URLConnection connection = new URL( this.InfoUrl.getUrl().toString() ).openConnection();
             connection.setRequestProperty("Accept-Charset", "UTF-8");
+            connection.setRequestProperty("User-Agent", Settings.UserAgent);
             connection.setReadTimeout((Settings.URLConnectionTimeOut*1000));
             InputStream response = connection.getInputStream();
 
@@ -44,7 +45,7 @@ class GetProxy extends WorkThread {
             }
 
             int flags = Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE;			
-            Pattern pattern = Pattern.compile(this.InfoUrl.PatternString, flags);
+            Pattern pattern = Pattern.compile(this.InfoUrl.getPatternString(), flags);
             Matcher m = pattern.matcher(result);
 
             while(m.find()) {

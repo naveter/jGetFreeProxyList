@@ -244,9 +244,7 @@ public final class jGetFreeProxyList {
             
             es.shutdown();
             es.awaitTermination(Settings.AwaitTestProxy, TimeUnit.SECONDS);
-                    
-//			jGetFreeProxyList.run();
-            
+                        
 
 
 		}
