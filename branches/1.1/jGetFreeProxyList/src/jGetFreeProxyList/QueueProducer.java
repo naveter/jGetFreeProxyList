@@ -25,14 +25,25 @@ class QueueProducer extends WorkThread {
 	@Override
     public void run() {
         
+        System.out.println("QueueProducer started");
+        
         for(ProxyItem pi : this.Main.RawProxies.values()){
+            
+            // If stop() is called
+            if (true == this.Main.IsStopped.get()) break;
+            
             try {
+                
+//                System.out.println("QueueProducer before put");
+                
                 this.Main.ProxiesQueue.put(pi);
             }
             catch(InterruptedException e) {
                 
             }
         }
+        
+        System.out.println("QueueProducer stopped");
         
     }
     

@@ -23,6 +23,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 
 /**
@@ -58,29 +59,32 @@ import java.util.concurrent.atomic.AtomicReference;
  * </code></pre>
  *
  * @see <a href="https://sourceforge.net/p/jgetfreeproxylist/wiki/Home/">See manual</a>
- * @version 1.0
+ * @version 1.1
  */
 public final class jGetFreeProxyList {
 	
-	// Queue for threads to test proxies
+	/** Queue for threads to test proxies */
     ArrayBlockingQueue<ProxyItem> ProxiesQueue = new ArrayBlockingQueue(Settings.CapacityProxiesQueue);
 	
-	// Map of unique non tested proxies
+	/** Map of unique non tested proxies */
     ConcurrentHashMap<String, ProxyItem> RawProxies = new ConcurrentHashMap<>();
 	
-	// Listener for cunsumer's communication
+	/** Listener for cunsumer's communication */
     jGetFreeProxyListListener jGetFreeProxyListListener;
 	
-	// Counter of ended GetProxy threads 
+	/** Counter of ended GetProxy threads  */
     AtomicInteger GetProxyCounter = new AtomicInteger(0);
     
-    // Counter of ended tests of proxy in TestProxy
+    /** Counter of ended tests of proxy in TestProxy */
     AtomicInteger TestProxyCounter = new AtomicInteger(0);
+    
+    /** Whether all process must be stopped or not */
+    AtomicBoolean IsStopped = new AtomicBoolean(false);
 	
-	// Proxies that tested already
+	/** Proxies that tested already */
     CopyOnWriteArrayList<ProxyItem> TestedProxies = new CopyOnWriteArrayList<>();
     
-    // Collection of errors
+    /** Collection of errors */
     AtomicReference<WorkErrors> WorkErrors = new AtomicReference<>(new WorkErrors());
 	
 	// Executors for threads
@@ -130,6 +134,8 @@ public final class jGetFreeProxyList {
 			
 			throw new RuntimeException("There is no proxies were found for test");
 		}
+        
+        System.out.println("Received proxies: " + this.RawProxies.size());
 		
 		// Start QueueProducer
 		this.ExQueueProducer = Executors.newSingleThreadExecutor();
@@ -144,6 +150,8 @@ public final class jGetFreeProxyList {
         this.ExTestProxy.shutdown();
 		this.ExQueueProducer.shutdown();
 		
+        System.out.println("Before awaitTermination");
+        
 		// Await until all TestProxy threads and QueueProducer will ended
 		this.ExTestProxy.awaitTermination(Settings.AwaitTestProxy, TimeUnit.SECONDS);
 		this.ExQueueProducer.awaitTermination(Settings.AwaitTestProxy, TimeUnit.SECONDS);
@@ -155,7 +163,20 @@ public final class jGetFreeProxyList {
 		this.jGetFreeProxyListListener.done(
             new ArrayList<ProxyItem>(this.TestedProxies), this.WorkErrors.get().get()
         );
+        
+        System.out.println("-------- Run is finished -------------");
 		
+    }
+    
+    /**
+     * Stop all launched process and run() will release as soon, as all threads will stopped.
+     * Call this method in the same thread where is launched run() is senseless, obviously.
+     */
+    public void stop(){
+        this.IsStopped.set(true);
+        
+        // To stop QueueProducer thread
+        this.ProxiesQueue.clear();
     }
     
 	/**
@@ -175,37 +196,67 @@ public final class jGetFreeProxyList {
 		}
 	}
 	
-//	public static void main(String[] args) {
-//		jGetFreeProxyList jGetFreeProxyList = new jGetFreeProxyList(
-//			new jGetFreeProxyListListener(){
-//				@Override
-//				public void process(int getProxyPerc, int testProxyPerc){
-//                    System.out.println(".process():" + getProxyPerc + ":" + testProxyPerc);
-//				}
-//				@Override
-//				public void done(ArrayList<ProxyItem> testedProxies, WorkErrors errors){
-//					String str = "";
-//					for(ProxyItem s: testedProxies) str += s.toString();
-//                    System.out.println(".done(): " + str);
-//                    
-//                    if (null != errors && !errors.WithoutProxies.isEmpty()){
-//						String str2 = "";
-//						for(InfoUrl s: errors.WithoutProxies) str += s.toString();
-//                        System.out.println(".errors.WithoutProxies: " + str2);
-//                    }
-//                   
-//				}
-//			}
-//		);
-//		
-//		try {
+	public static void main(String[] args) {
+		final jGetFreeProxyList jGetFreeProxyList = new jGetFreeProxyList(
+			new jGetFreeProxyListListener(){
+				@Override
+				public void process(int getProxyPerc, int testProxyPerc){
+                    System.out.println(".process():" + getProxyPerc + ":" + testProxyPerc);
+				}
+				@Override
+				public void done(ArrayList<ProxyItem> testedProxies, WorkErrors errors){
+					String str = "";
+					for(ProxyItem s: testedProxies) str += s.toString();
+                    System.out.println(".done(): " + str);
+                    
+                    if (null != errors && !errors.WithoutProxies.isEmpty()){
+						String str2 = "";
+						for(InfoUrl s: errors.WithoutProxies) str += s.toString();
+                        System.out.println(".errors.WithoutProxies: " + str2);
+                    }
+                   
+				}
+			}
+		);
+        
+        System.out.println("Program is started");
+		
+		try {
+            ExecutorService es = Executors.newSingleThreadExecutor();
+            es.submit(new Runnable(){
+                @Override
+                public void run(){
+                    try {
+                        jGetFreeProxyList.run();
+                    }
+                    catch(InterruptedException e) {
+                        System.out.println(e.getMessage());
+                    }
+                }
+            });
+            
+//            // Stop work if something happen
+//            if (true /**something happen**/){
+//                Thread.sleep(10000);
+//                System.out.println("Before call stop()");
+//                jGetFreeProxyList.stop();
+//            }
+            
+            es.shutdown();
+            es.awaitTermination(Settings.AwaitTestProxy, TimeUnit.SECONDS);
+                    
 //			jGetFreeProxyList.run();
-//		}
-//		catch(InterruptedException e) {
-//			System.out.println(e.getMessage());
-//		}
-//		
-//	}
+            
+
+
+		}
+		catch(InterruptedException e) {
+			System.out.println(e.getMessage());
+		}
+        
+        System.out.println("Program is stopped");
+		
+	}
     
     /**
      * Calc percentage from given max and current value

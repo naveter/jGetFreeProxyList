@@ -31,7 +31,7 @@ class TestProxy extends WorkThread {
 	@Override
     public void run() {
         
-        while(true) {
+        while(true && false == this.Main.IsStopped.get()) {
             ProxyItem pi = null;
             
             try{
@@ -44,6 +44,9 @@ class TestProxy extends WorkThread {
             
             pi.LastChecked = null;
             pi.RespondMilliSeconds = 0;
+            
+            // If stop() is called
+            if (true == this.Main.IsStopped.get()) break;
             
             try {
                 
@@ -72,7 +75,11 @@ class TestProxy extends WorkThread {
             }
 			
 			this.Main.TestProxyCounter.getAndIncrement();
+            
+            System.out.println("TestProxy finished: " + pi.toString());
         }
+        
+        System.out.println("TestProxy thread stopped");
         
     }
     
