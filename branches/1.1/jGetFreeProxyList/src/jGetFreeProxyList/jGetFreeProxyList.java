@@ -107,7 +107,7 @@ public final class jGetFreeProxyList {
 	 * @throws RuntimeException - if no proxies were found
 	 * @throws InterruptedException - from Executors
 	 */
-    public void run() throws RuntimeException, InterruptedException {
+    public void run() throws InterruptedException {
 		this.init();
 		
 		// Start StateControl
@@ -152,6 +152,8 @@ public final class jGetFreeProxyList {
 		
         System.out.println("Before awaitTermination");
         
+//        throw new InterruptedException("From run method");
+        
 		// Await until all TestProxy threads and QueueProducer will ended
 		this.ExTestProxy.awaitTermination(Settings.AwaitTestProxy, TimeUnit.SECONDS);
 		this.ExQueueProducer.awaitTermination(Settings.AwaitTestProxy, TimeUnit.SECONDS);
@@ -177,6 +179,23 @@ public final class jGetFreeProxyList {
         
         // To stop QueueProducer thread
         this.ProxiesQueue.clear();
+    }
+    
+    /**
+     * Emergency stop to work when exception is occured.
+     * Must use in <code>catch</code> block. 
+     */
+    public void shutdown(){
+        this.stop();
+        
+		// Stop StateControl
+		this.ExStateControl.shutdown();
+
+		this.jGetFreeProxyListListener.done(
+            new ArrayList<ProxyItem>(this.TestedProxies), this.WorkErrors.get().get()
+        );
+        
+        System.out.println("-------- shutdown is finished -------------");
     }
     
 	/**
@@ -222,15 +241,20 @@ public final class jGetFreeProxyList {
         System.out.println("Program is started");
 		
 		try {
+            // Execute work in other thread
             ExecutorService es = Executors.newSingleThreadExecutor();
             es.submit(new Runnable(){
                 @Override
                 public void run(){
                     try {
+                        // Run work processes
                         jGetFreeProxyList.run();
                     }
                     catch(InterruptedException e) {
-                        System.out.println(e.getMessage());
+                        // Have to call to stop other processes
+                        jGetFreeProxyList.shutdown();
+                        
+                        System.out.println("Into executor:" + e.getMessage());
                     }
                 }
             });
@@ -244,12 +268,13 @@ public final class jGetFreeProxyList {
             
             es.shutdown();
             es.awaitTermination(Settings.AwaitTestProxy, TimeUnit.SECONDS);
-                        
-
-
+            
 		}
 		catch(InterruptedException e) {
-			System.out.println(e.getMessage());
+            // Have to call to stop other processes
+            jGetFreeProxyList.shutdown();
+            
+			System.out.println("Into main:" + e.getMessage());
 		}
         
         System.out.println("Program is stopped");

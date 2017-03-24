@@ -965,8 +965,8 @@ percentage
 <XPD:OBJ name="OwnedViews[9]" type="UMLClassView" guid="RESoYM/THESh3Cdbg9t7CwAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Left" type="integer">560</XPD:ATTR>
-<XPD:ATTR name="Top" type="integer">488</XPD:ATTR>
+<XPD:ATTR name="Left" type="integer">552</XPD:ATTR>
+<XPD:ATTR name="Top" type="integer">508</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">204</XPD:ATTR>
 <XPD:ATTR name="Height" type="integer">147</XPD:ATTR>
 <XPD:REF name="Model">O89jYM3mukezzgkDFToxJgAA</XPD:REF>
@@ -1203,7 +1203,7 @@ percentage
 <XPD:OBJ name="OwnedViews[17]" type="UMLAssociationView" guid="mTFR+JvdjESSSk4rzbftxwAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">658,488;656,451</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">653,508;653,451</XPD:ATTR>
 <XPD:REF name="Model">Hb7ux6FJUEC5z2vmuaewZgAA</XPD:REF>
 <XPD:REF name="Head">tGmEo7r18E2WAQqAgaq3sQAA</XPD:REF>
 <XPD:REF name="Tail">RESoYM/THESh3Cdbg9t7CwAA</XPD:REF>
@@ -1977,39 +1977,39 @@ percentage
 <XPD:REF name="Associations[0]">PfryrWnFm06JqxetGBX44AAA</XPD:REF>
 <XPD:REF name="Associations[1]">EUzLoLBT5kKrBEP9+5+6kwAA</XPD:REF>
 <XPD:ATTR name="#Attributes" type="integer">8</XPD:ATTR>
-<XPD:OBJ name="Attributes[0]" type="UMLAttribute" guid="MeqOsyibdU+1fQr6OQ6t4gAA">
+<XPD:OBJ name="Attributes[0]" type="UMLAttribute" guid="0xbtHnHj/EenJa9MF2yV0wAA">
+<XPD:ATTR name="Name" type="string">static Version</XPD:ATTR>
+<XPD:ATTR name="Visibility" type="UMLVisibilityKind">vkProtected</XPD:ATTR>
+<XPD:ATTR name="TypeExpression" type="string">String</XPD:ATTR>
+<XPD:REF name="Owner">Uudr9+DK3EqhYygpJs7LhgAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Attributes[1]" type="UMLAttribute" guid="MeqOsyibdU+1fQr6OQ6t4gAA">
 <XPD:ATTR name="Name" type="string">static TestByUrls</XPD:ATTR>
 <XPD:ATTR name="TypeExpression" type="string">ArrayList&lt;Url&gt;</XPD:ATTR>
 <XPD:REF name="Owner">Uudr9+DK3EqhYygpJs7LhgAA</XPD:REF>
 </XPD:OBJ>
-<XPD:OBJ name="Attributes[1]" type="UMLAttribute" guid="PoALx9jolkaka4xkamUUHgAA">
+<XPD:OBJ name="Attributes[2]" type="UMLAttribute" guid="PoALx9jolkaka4xkamUUHgAA">
 <XPD:ATTR name="Name" type="string">static GetProxyUrls</XPD:ATTR>
 <XPD:ATTR name="TypeExpression" type="string">ArrayList&lt;InfoUrl&gt;</XPD:ATTR>
 <XPD:REF name="Owner">Uudr9+DK3EqhYygpJs7LhgAA</XPD:REF>
 </XPD:OBJ>
-<XPD:OBJ name="Attributes[2]" type="UMLAttribute" guid="FKbxvcVyr0mTHtmuXdR8XQAA">
+<XPD:OBJ name="Attributes[3]" type="UMLAttribute" guid="FKbxvcVyr0mTHtmuXdR8XQAA">
 <XPD:ATTR name="Name" type="string">static AmountThreads</XPD:ATTR>
 <XPD:ATTR name="TypeExpression" type="string">int</XPD:ATTR>
 <XPD:REF name="Owner">Uudr9+DK3EqhYygpJs7LhgAA</XPD:REF>
 </XPD:OBJ>
-<XPD:OBJ name="Attributes[3]" type="UMLAttribute" guid="on2+JYjdTUq941s2YeTyegAA">
+<XPD:OBJ name="Attributes[4]" type="UMLAttribute" guid="on2+JYjdTUq941s2YeTyegAA">
 <XPD:ATTR name="Name" type="string">static AwaitGetProxy</XPD:ATTR>
 <XPD:ATTR name="TypeExpression" type="string">int</XPD:ATTR>
 <XPD:REF name="Owner">Uudr9+DK3EqhYygpJs7LhgAA</XPD:REF>
 </XPD:OBJ>
-<XPD:OBJ name="Attributes[4]" type="UMLAttribute" guid="1wm+TIC1iUSezrHAnp6yAgAA">
+<XPD:OBJ name="Attributes[5]" type="UMLAttribute" guid="1wm+TIC1iUSezrHAnp6yAgAA">
 <XPD:ATTR name="Name" type="string">static AwaitTestProxy</XPD:ATTR>
 <XPD:ATTR name="TypeExpression" type="string">int</XPD:ATTR>
 <XPD:REF name="Owner">Uudr9+DK3EqhYygpJs7LhgAA</XPD:REF>
 </XPD:OBJ>
-<XPD:OBJ name="Attributes[5]" type="UMLAttribute" guid="5nFUxgQW1U2l751V6xrZWgAA">
+<XPD:OBJ name="Attributes[6]" type="UMLAttribute" guid="5nFUxgQW1U2l751V6xrZWgAA">
 <XPD:ATTR name="Name" type="string">static CapacityProxiesQueue</XPD:ATTR>
-<XPD:REF name="Owner">Uudr9+DK3EqhYygpJs7LhgAA</XPD:REF>
-</XPD:OBJ>
-<XPD:OBJ name="Attributes[6]" type="UMLAttribute" guid="0xbtHnHj/EenJa9MF2yV0wAA">
-<XPD:ATTR name="Name" type="string">static Version</XPD:ATTR>
-<XPD:ATTR name="Visibility" type="UMLVisibilityKind">vkProtected</XPD:ATTR>
-<XPD:ATTR name="TypeExpression" type="string">String</XPD:ATTR>
 <XPD:REF name="Owner">Uudr9+DK3EqhYygpJs7LhgAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="Attributes[7]" type="UMLAttribute" guid="rXIErgayQ0qV0XE2pgepqgAA">
