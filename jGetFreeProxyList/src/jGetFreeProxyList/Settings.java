@@ -67,6 +67,11 @@ public class Settings {
      * How long await when connect to URL, in seconds
      */
     public static int URLConnectionTimeOut = 5;
+    
+    /**
+     * User agent for HTTP query
+     */
+    public static String UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36";
 	
 	static {
 		// Fill statements by default
@@ -89,7 +94,7 @@ public class Settings {
 //                new URL("http://www.prime-speed.ru/proxy/free-proxy-list/all-working-proxies.php")
 //            ));
 //			GetProxyUrls.add(new InfoUrl(new URL("http://samair.ru/proxy/")));
-			GetProxyUrls.add(new InfoUrl(new URL("http://proxydb.net/")));
+//			GetProxyUrls.add(new InfoUrl(new URL("http://proxydb.net/")));
 			GetProxyUrls.add(
                 new InfoUrl(new URL("http://www.atomintersoft.com/products/alive-proxy/proxy-list"))
             );
