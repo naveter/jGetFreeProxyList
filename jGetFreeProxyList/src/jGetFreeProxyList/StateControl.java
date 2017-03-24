@@ -44,6 +44,8 @@ class StateControl extends WorkThread {
 				this.Main.jGetFreeProxyListListener.process(percGetProxy, percTestProxy);
 			}
         }
+        
+        System.out.println("StateControl is stopped");
 		
     }
     

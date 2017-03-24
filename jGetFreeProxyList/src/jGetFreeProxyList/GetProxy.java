@@ -63,6 +63,8 @@ class GetProxy extends WorkThread {
         
         this.Main.GetProxyCounter.incrementAndGet();
         
+        System.out.println("GetProxy stopped: " + this.Main.GetProxyCounter.get());
+        
         // No proxies was found
         if(0 == cnt) {
             this.Main.WorkErrors.get().WithoutProxies.add(this.InfoUrl);
