@@ -72,15 +72,17 @@ class TestProxy extends WorkThread {
                 this.Main.TestedProxies.addIfAbsent(pi);
             }
             catch(Exception e) {
-                
+                this.Main.WorkErrors.get().Errors.add(
+                    this.getClass().getName() + "; " + e.getMessage() + "; " + pi.toString()
+                );
             }
 			
 			this.Main.TestProxyCounter.getAndIncrement();
             
-            System.out.println("TestProxy finished: " + pi.toString());
+            Dev.out("TestProxy finished: " + pi.toString());
         }
         
-        System.out.println("TestProxy thread stopped");
+        Dev.out("TestProxy thread stopped");
         
     }
     

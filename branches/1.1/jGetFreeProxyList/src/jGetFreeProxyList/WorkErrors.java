@@ -19,9 +19,16 @@ import java.util.ArrayList;
 public class WorkErrors {
     
     /**
-     * List InfoUrl where was found no proxies
+     * List InfoUrl where was found no proxies.
      */
     public ArrayList<InfoUrl> WithoutProxies = new ArrayList<>();
+    
+    /**
+     * Errors from threads, URL-connections and others.
+     * <p>
+     * There it possible to see why tested proxies were not valid.
+     */
+    public ArrayList<String> Errors = new ArrayList<>();
     
     /**
      * Check wether any field is filled. Return <code>null</code> if not.
@@ -29,6 +36,7 @@ public class WorkErrors {
      */
     public WorkErrors get(){
         if (!this.WithoutProxies.isEmpty()) return this;
+        if (!this.Errors.isEmpty()) return this;
         
         return null;
     }

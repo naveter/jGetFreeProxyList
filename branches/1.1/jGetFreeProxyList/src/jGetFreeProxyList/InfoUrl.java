@@ -97,7 +97,7 @@ public class InfoUrl {
             result += scanner.useDelimiter("\\a").next();
         }
         
-//        System.out.println(result);
+//        Dev.out(result);
 
         int flags = Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE;			
         Pattern pattern = Pattern.compile(this.getPatternString(), flags);

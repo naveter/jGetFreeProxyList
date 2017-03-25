@@ -25,7 +25,7 @@ class QueueProducer extends WorkThread {
 	@Override
     public void run() {
         
-        System.out.println("QueueProducer started");
+        Dev.out("QueueProducer started");
         
         for(ProxyItem pi : this.Main.RawProxies.values()){
             
@@ -33,17 +33,16 @@ class QueueProducer extends WorkThread {
             if (true == this.Main.IsStopped.get()) break;
             
             try {
-                
-//                System.out.println("QueueProducer before put");
-                
                 this.Main.ProxiesQueue.put(pi);
             }
             catch(InterruptedException e) {
-                
+                this.Main.WorkErrors.get().Errors.add(
+                    this.getClass().getName() + "; " + e.getMessage()
+                );                            
             }
         }
         
-        System.out.println("QueueProducer stopped");
+        Dev.out("QueueProducer stopped");
         
     }
     
