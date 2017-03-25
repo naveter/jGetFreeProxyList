@@ -7,7 +7,7 @@
  * 
  * @author: ilya.gulevskiy
  * @email: mstorage.project@gmail.com
- * @date: 2016
+ * @date: 2017
  */
 package jGetFreeProxyList;
 
@@ -16,14 +16,14 @@ import java.util.Date;
 
 /**
  * Substance wich take care about proxy's item
+ * 
+ * @version 1.1
  */
 public class ProxyItem {
     public InetAddress Ip;
     public int Port;
     
-	/**
-	 * How much second wait answer in last test time
-	 */
+	/** How much second wait answer in last test time */
     public long RespondMilliSeconds;
 	
 	/** When was last check */

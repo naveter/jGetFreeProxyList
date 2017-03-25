@@ -7,7 +7,7 @@
  * 
  * @author: ilya.gulevskiy
  * @email: mstorage.project@gmail.com
- * @date: 2016
+ * @date: 2017
  */
 package jGetFreeProxyList;
 
@@ -23,8 +23,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Structure to represent info about servers when possible to find proxies
- * and how parse theirs page.
+ * Structure to represent info about URL-page when possible to find list of proxies
+ * and how to parse it.
+ * 
+ * @version 1.1
  */
 public class InfoUrl {
     private java.net.URL Url;
@@ -55,8 +57,8 @@ public class InfoUrl {
     /**
      * Set RegExp pattern to parse page and get ProxyItem
      * 
-     * @param PatternString 
-     * @exception PatternSyntaxException - when set up wrong pattern string
+     * @param PatternString - RegExp for parser
+     * @exception java.util.regex.PatternSyntaxException - when set up wrong pattern string
      */
     public void setPatternString(String PatternString) {
         // Check whether PatternString is correct
@@ -75,13 +77,11 @@ public class InfoUrl {
      * <p>
      * Be aware, if returned ArrayList is empty, that means 
      * yours RegExp setted by <code>setPatternString(String PatternString)</code>
-     * is wrong and you must try other RegExp.
+     * <b>is wrong</b> and you must try other RegExp.
      * <p>
      * This method exists for refuse senseless work when will launch run() method.
      * 
-     * @exception PatternSyntaxException - when set up wrong pattern string
-     * @exception 
-     * @return 
+     * @return - list of found proxies
      */
     public ArrayList<ProxyItem> test() throws MalformedURLException, IOException {
         ArrayList<ProxyItem> list = new ArrayList<>();
@@ -97,8 +97,6 @@ public class InfoUrl {
             result += scanner.useDelimiter("\\a").next();
         }
         
-//        Dev.out(result);
-
         int flags = Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE;			
         Pattern pattern = Pattern.compile(this.getPatternString(), flags);
         Matcher m = pattern.matcher(result);

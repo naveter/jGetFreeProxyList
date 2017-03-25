@@ -7,7 +7,7 @@
  * 
  * @author: ilya.gulevskiy
  * @email: mstorage.project@gmail.com
- * @date: 2016
+ * @date: 2017
  */
 package jGetFreeProxyList;
 
@@ -18,8 +18,10 @@ import java.util.Set;
 
 
 /**
- * Filler to queue will add task to queue as it will need
-**/
+ * Filler into queue, it will add tasks to queue as it will possible.
+ * 
+ * @version 1.1
+ */
 class QueueProducer extends WorkThread {
     
 	@Override

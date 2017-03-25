@@ -611,7 +611,7 @@ percentage
 <XPD:OBJ name="OwnedViews[0]" type="UMLGeneralizationView" guid="dwc3S0Lj0U6K4yZV7nte7AAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">340,361;237,516</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">339,361;234,516</XPD:ATTR>
 <XPD:REF name="Model">xAvoemRLUECmnVKbnd3bvgAA</XPD:REF>
 <XPD:REF name="Head">LJ+whF6S/0qTXTXMnWEh9wAA</XPD:REF>
 <XPD:REF name="Tail">2n7Yebjkj0ehgktRJcht6AAA</XPD:REF>
@@ -637,7 +637,7 @@ percentage
 <XPD:OBJ name="OwnedViews[1]" type="UMLGeneralizationView" guid="KkPCuaGm2kq6/R0X8ync6AAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">130,344;196,516</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">130,344;198,516</XPD:ATTR>
 <XPD:REF name="Model">/h0oDp4WZk6PS3+GjJaapwAA</XPD:REF>
 <XPD:REF name="Head">LJ+whF6S/0qTXTXMnWEh9wAA</XPD:REF>
 <XPD:REF name="Tail">ENaojT83SEiz8kvvUI6YXQAA</XPD:REF>
@@ -1151,7 +1151,7 @@ percentage
 <XPD:OBJ name="OwnedViews[15]" type="UMLGeneralizationView" guid="CYX7R2RaTEGusHDWqMpNkQAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">137,440;185,516</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">138,440;188,516</XPD:ATTR>
 <XPD:REF name="Model">AePKzi1w3kCGecZaoYP3FgAA</XPD:REF>
 <XPD:REF name="Head">LJ+whF6S/0qTXTXMnWEh9wAA</XPD:REF>
 <XPD:REF name="Tail">vUFiUoWyJUy+P6aGmcvbXAAA</XPD:REF>
@@ -1177,7 +1177,7 @@ percentage
 <XPD:OBJ name="OwnedViews[16]" type="UMLGeneralizationView" guid="nA/nwjnOikKMTKbexWyKPgAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">323,440;250,516</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">322,440;245,516</XPD:ATTR>
 <XPD:REF name="Model">/3vUSjTAP06P6xwmEN3gIgAA</XPD:REF>
 <XPD:REF name="Head">LJ+whF6S/0qTXTXMnWEh9wAA</XPD:REF>
 <XPD:REF name="Tail">62RYhawTzESBTfAKxXCHLgAA</XPD:REF>
@@ -1710,7 +1710,7 @@ percentage
 <XPD:ATTR name="Left" type="integer">112</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">516</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">200</XPD:ATTR>
-<XPD:ATTR name="Height" type="integer">82</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">69</XPD:ATTR>
 <XPD:REF name="Model">idZWf9Gf6kOeVh1emK0+zgAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="BM2T3PiGfUa4o8BhaYFeQAAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="pxuX0y6f2UOzRoOjoBt+DQAA">
@@ -1738,7 +1738,7 @@ percentage
 <XPD:OBJ name="OwnedViews[24]" type="UMLGeneralizationView" guid="wRPzHd5oFU29ZqnWkHD0QwAA">
 <XPD:ATTR name="LineColor" type="string">clMaroon</XPD:ATTR>
 <XPD:ATTR name="FillColor" type="string">$00B9FFFF</XPD:ATTR>
-<XPD:ATTR name="Points" type="Points">208,597;204,648</XPD:ATTR>
+<XPD:ATTR name="Points" type="Points">208,584;203,648</XPD:ATTR>
 <XPD:REF name="Model">TiOcF0DaoEy/xKzNrg0f3gAA</XPD:REF>
 <XPD:REF name="Head">+l66y0sFy0mb7Ct6tPk7+QAA</XPD:REF>
 <XPD:REF name="Tail">LJ+whF6S/0qTXTXMnWEh9wAA</XPD:REF>
@@ -2832,18 +2832,8 @@ percentage
 <XPD:REF name="Specializations[1]">AePKzi1w3kCGecZaoYP3FgAA</XPD:REF>
 <XPD:REF name="Specializations[2]">xAvoemRLUECmnVKbnd3bvgAA</XPD:REF>
 <XPD:REF name="Specializations[3]">/h0oDp4WZk6PS3+GjJaapwAA</XPD:REF>
-<XPD:ATTR name="#Operations" type="integer">2</XPD:ATTR>
-<XPD:OBJ name="Operations[0]" type="UMLOperation" guid="1UVhO0prUUmvExktZXLqFwAA">
-<XPD:ATTR name="Name" type="string">run</XPD:ATTR>
-<XPD:REF name="Owner">idZWf9Gf6kOeVh1emK0+zgAA</XPD:REF>
-<XPD:ATTR name="#Parameters" type="integer">1</XPD:ATTR>
-<XPD:OBJ name="Parameters[0]" type="UMLParameter" guid="qIVOmB6eDEi3JrLq5WSaQAAA">
-<XPD:ATTR name="DirectionKind" type="UMLParameterDirectionKind">pdkReturn</XPD:ATTR>
-<XPD:ATTR name="TypeExpression" type="string">void</XPD:ATTR>
-<XPD:REF name="BehavioralFeature">1UVhO0prUUmvExktZXLqFwAA</XPD:REF>
-</XPD:OBJ>
-</XPD:OBJ>
-<XPD:OBJ name="Operations[1]" type="UMLOperation" guid="3oO+S0ykNEiZTH3ddjsyyQAA">
+<XPD:ATTR name="#Operations" type="integer">1</XPD:ATTR>
+<XPD:OBJ name="Operations[0]" type="UMLOperation" guid="3oO+S0ykNEiZTH3ddjsyyQAA">
 <XPD:ATTR name="Name" type="string">WorkThread</XPD:ATTR>
 <XPD:REF name="Owner">idZWf9Gf6kOeVh1emK0+zgAA</XPD:REF>
 <XPD:ATTR name="#Parameters" type="integer">1</XPD:ATTR>

@@ -7,7 +7,7 @@
  * 
  * @author: ilya.gulevskiy
  * @email: mstorage.project@gmail.com
- * @date: 2016
+ * @date: 2017
  */
 package jGetFreeProxyList;
 
@@ -49,13 +49,20 @@ import java.util.concurrent.atomic.AtomicBoolean;
  *
  *try {
  * 
- *  // Run process
+ *  // There you can adjust settings, see manual.
+ *  // By default jGetFreeProxyList has common settings for correct work.
+ *  // But is better to use your own.
+ * 
+ *  // Run process. But is better to run it in diffrent thread.
  *	jGetFreeProxyList.run();
  * 
  *}
- *catch(InterruptedException e) {
- *	Dev.out(e.getMessage());
- *}
+ *catch(Exception e) {
+ * 
+ *  // Have to call to stop other processes if exception is occured
+ *  jGetFreeProxyList.shutdown();
+ * 
+ * }
  * </code></pre>
  *
  * @see <a href="https://sourceforge.net/p/jgetfreeproxylist/wiki/Home/">See manual</a>
@@ -102,7 +109,7 @@ public final class jGetFreeProxyList {
 	}
 	
 	/**
-	 * Run process
+	 * Run work processes
 	 * 
 	 * @throws RuntimeException - if no proxies were found
 	 * @throws InterruptedException - from Executors
@@ -154,9 +161,7 @@ public final class jGetFreeProxyList {
 		this.ExQueueProducer.shutdown();
 		
         Dev.out("Before awaitTermination");
-        
-//        throw new InterruptedException("From run method");
-        
+                
 		// Await until all TestProxy threads and QueueProducer will ended
 		this.ExTestProxy.awaitTermination(Settings.AwaitTestProxy, TimeUnit.SECONDS);
 		this.ExQueueProducer.awaitTermination(Settings.AwaitTestProxy, TimeUnit.SECONDS);
@@ -176,6 +181,7 @@ public final class jGetFreeProxyList {
     /**
      * Stop all launched process and run() will release as soon, as all threads will stopped.
      * Call this method in the same thread where is launched run() is senseless, obviously.
+     * Please, call it in different thread than run().
      */
     public void stop(){
         this.IsStopped.set(true);
@@ -202,7 +208,7 @@ public final class jGetFreeProxyList {
     }
     
 	/**
-	 * Checking of settings data
+	 * Checking of settings data and prepare to work.
 	 * 
 	 * @throws RuntimeException - if settings is not correct
 	 */
@@ -227,74 +233,77 @@ public final class jGetFreeProxyList {
         this.WorkErrors.set(new WorkErrors());
 	}
 	
-	public static void main(String[] args) {
-		final jGetFreeProxyList jGetFreeProxyList = new jGetFreeProxyList(
-			new jGetFreeProxyListListener(){
-				@Override
-				public void process(int getProxyPerc, int testProxyPerc){
-                    System.out.println(".process():" + getProxyPerc + ":" + testProxyPerc);
-				}
-				@Override
-				public void done(ArrayList<ProxyItem> testedProxies, WorkErrors errors){
-					String str = "";
-					for(ProxyItem s: testedProxies) str += s.toString();
-                    System.out.println(".done(): " + str);
-                    
-                    if (null != errors) {
-                        // If there were any pages without proxies
-                        if (!errors.WithoutProxies.isEmpty()){
-                            System.out.println(".errors.WithoutProxies: ");
-                            for(InfoUrl s: errors.WithoutProxies) System.out.println(s.toString());
-                        }
-                        
-                        // Print all errors of connections to tested proxies
-                        if (!errors.Errors.isEmpty()){
-                            System.out.println(".errors.Errors: ");
-                            for(String s: errors.Errors) System.out.println(s);
-                        }
-                    }
-                   
-				}
-			}
-		);
-        
-        Dev.out("Program is started");
-		
-		try {
-            // Execute work in other thread
-            ExecutorService es = Executors.newSingleThreadExecutor();
-            es.submit(new Runnable(){
-                @Override
-                public void run(){
-                    try {
-                        // Run work processes
-                        jGetFreeProxyList.run();
-                    }
-                    catch(Exception e) {
-                        // Have to call to stop other processes
-                        jGetFreeProxyList.shutdown();
-                        
-                        System.out.println(e.getMessage());
-                    }
-                }
-            });
-            
-//            // Stop work if something happen
-//            if (true /**something happen**/){
-//                jGetFreeProxyList.stop();
-//            }
-            
-            es.shutdown();
-            es.awaitTermination(Settings.AwaitTestProxy, TimeUnit.SECONDS);
-            
-		}
-		catch(InterruptedException e) {            
-			System.out.println(e.getMessage());
-		}
-        
-        Dev.out("Program is stopped");
-		
-	}
+// You can uncomment main() method and try to run this library as application
+    
+//	public static void main(String[] args) {
+//      Settings.EnableDebug = true;    
+//		final jGetFreeProxyList jGetFreeProxyList = new jGetFreeProxyList(
+//			new jGetFreeProxyListListener(){
+//				@Override
+//				public void process(int getProxyPerc, int testProxyPerc){
+//                    System.out.println(".process():" + getProxyPerc + ":" + testProxyPerc);
+//				}
+//				@Override
+//				public void done(ArrayList<ProxyItem> testedProxies, WorkErrors errors){
+//					String str = "";
+//					for(ProxyItem s: testedProxies) str += s.toString();
+//                    System.out.println(".done(): " + str);
+//                    
+//                    if (null != errors) {
+//                        // If there were any pages without proxies
+//                        if (!errors.WithoutProxies.isEmpty()){
+//                            System.out.println(".errors.WithoutProxies: ");
+//                            for(InfoUrl s: errors.WithoutProxies) System.out.println(s.toString());
+//                        }
+//                        
+//                        // Print all errors of connections to tested proxies
+//                        if (!errors.Errors.isEmpty()){
+//                            System.out.println(".errors.Errors: ");
+//                            for(String s: errors.Errors) System.out.println(s);
+//                        }
+//                    }
+//                   
+//				}
+//			}
+//		);
+//        
+//        Dev.out("Program is started");
+//		
+//		try {
+//            // Execute work in other thread
+//            ExecutorService es = Executors.newSingleThreadExecutor();
+//            es.submit(new Runnable(){
+//                @Override
+//                public void run(){
+//                    try {
+//                        // Run work processes
+//                        jGetFreeProxyList.run();
+//                    }
+//                    catch(Exception e) {
+//                        // Have to call to stop other processes
+//                        jGetFreeProxyList.shutdown();
+//                        
+//                        System.out.println(e.getMessage());
+//                    }
+//                }
+//            });
+//            
+////            // Stop work if something happen
+////            if (true /**something happen**/){
+////                jGetFreeProxyList.stop();
+////            }
+//            
+//            es.shutdown();
+//            es.awaitTermination(Settings.AwaitTestProxy, TimeUnit.SECONDS);
+//            
+//		}
+//		catch(InterruptedException e) {            
+//			System.out.println(e.getMessage());
+//		}
+//        
+//        Dev.out("Program is stopped");
+//		
+//	}
     
     /**
      * Calc percentage from given max and current value

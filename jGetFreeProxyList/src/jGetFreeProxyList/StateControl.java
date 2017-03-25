@@ -7,7 +7,7 @@
  * 
  * @author: ilya.gulevskiy
  * @email: mstorage.project@gmail.com
- * @date: 2016
+ * @date: 2017
  */
 package jGetFreeProxyList;
 
@@ -16,8 +16,11 @@ import jGetFreeProxyList.jGetFreeProxyList;
 
 /**
  * Control thread to check state of work and inform consumers
-**/
+ * 
+ * @version 1.1
+ */
 class StateControl extends WorkThread {
+    /** How often ask state condition in milliseconds */
 	private static int askPeriod = 1000;
 	
 	@Override
@@ -26,7 +29,7 @@ class StateControl extends WorkThread {
 		// Thread will finish when main thread shutdown it
         while(!this.Main.ExStateControl.isShutdown()) {
 			
-            // Ask for condition every N seconds
+            // Ask for condition every N milliseconds
             try {
                 Thread.sleep(StateControl.askPeriod);
             }

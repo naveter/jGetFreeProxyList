@@ -7,7 +7,7 @@
  * 
  * @author: ilya.gulevskiy
  * @email: mstorage.project@gmail.com
- * @date: 2016
+ * @date: 2017
  */
 package jGetFreeProxyList;
 
@@ -25,12 +25,15 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Use in pool of threads to find out whether concrete proxy valid or not
+ * 
+ * @version 1.1
  */
 class TestProxy extends WorkThread {
 	
 	@Override
     public void run() {
         
+        // Do work while not call stop() or shutdown()
         while(true && false == this.Main.IsStopped.get()) {
             ProxyItem pi = null;
             
