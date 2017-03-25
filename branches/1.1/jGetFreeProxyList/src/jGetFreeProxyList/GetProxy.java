@@ -7,7 +7,7 @@
  * 
  * @author: ilya.gulevskiy
  * @email: mstorage.project@gmail.com
- * @date: 2016
+ * @date: 2017
  */
 package jGetFreeProxyList;
 
@@ -23,7 +23,9 @@ import java.util.regex.Pattern;
 
 /**
  * Use in pool of threads to find proxies from concrete url
-**/
+ * 
+ * @version 1.1
+ */
 class GetProxy extends WorkThread {
     
     protected InfoUrl InfoUrl;

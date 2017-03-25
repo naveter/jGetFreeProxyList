@@ -7,7 +7,7 @@
  * 
  * @author: ilya.gulevskiy
  * @email: mstorage.project@gmail.com
- * @date: 2016
+ * @date: 2017
  */
 package jGetFreeProxyList;
 
@@ -17,9 +17,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Technical class
+ * 
+ * @version 1.1
  */
 public class Dev {
+    /** Switch on debug regime */
     private static AtomicBoolean EnableDebug = new AtomicBoolean(false);
+    
+    /** Common log for all messages */
     private static CopyOnWriteArrayList<String> Log = new CopyOnWriteArrayList<>();
     
     public static boolean getEnableDebug() {
@@ -32,7 +37,7 @@ public class Dev {
     
     /**
      * Write message into log
-     * @param s 
+     * @param s - debug message
      */
     public static void out(String s) {
         Dev.Log.add(s);

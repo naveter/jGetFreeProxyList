@@ -1767,7 +1767,7 @@ percentage
 <XPD:ATTR name="Left" type="integer">408</XPD:ATTR>
 <XPD:ATTR name="Top" type="integer">676</XPD:ATTR>
 <XPD:ATTR name="Width" type="integer">190</XPD:ATTR>
-<XPD:ATTR name="Height" type="integer">69</XPD:ATTR>
+<XPD:ATTR name="Height" type="integer">82</XPD:ATTR>
 <XPD:REF name="Model">7ZeJTzUUok2qW0NURf1glgAA</XPD:REF>
 <XPD:OBJ name="NameCompartment" type="UMLNameCompartmentView" guid="vnhHLNbSc021rDnlclWNjgAA">
 <XPD:OBJ name="NameLabel" type="LabelView" guid="JPg+D5aG6k6X1thU0MYbdAAA">
@@ -2894,10 +2894,15 @@ percentage
 <XPD:ATTR name="#TypedParameters" type="integer">2</XPD:ATTR>
 <XPD:REF name="TypedParameters[0]">sBB/DJQU6k2fg3urX5lDYgAA</XPD:REF>
 <XPD:REF name="TypedParameters[1]">4btXswbPJ0eJpl5NvOGqZgAA</XPD:REF>
-<XPD:ATTR name="#Attributes" type="integer">1</XPD:ATTR>
+<XPD:ATTR name="#Attributes" type="integer">2</XPD:ATTR>
 <XPD:OBJ name="Attributes[0]" type="UMLAttribute" guid="TXYrbkn85kiyz+LdC0w45QAA">
 <XPD:ATTR name="Name" type="string">WithoutProxies</XPD:ATTR>
 <XPD:ATTR name="TypeExpression" type="string">ArrayList&lt;InfoUrl&gt;</XPD:ATTR>
+<XPD:REF name="Owner">7ZeJTzUUok2qW0NURf1glgAA</XPD:REF>
+</XPD:OBJ>
+<XPD:OBJ name="Attributes[1]" type="UMLAttribute" guid="xNuHivGWrU2woGtmFsLEygAA">
+<XPD:ATTR name="Name" type="string">Errors</XPD:ATTR>
+<XPD:ATTR name="TypeExpression" type="string">ArrayList&lt;String&gt;</XPD:ATTR>
 <XPD:REF name="Owner">7ZeJTzUUok2qW0NURf1glgAA</XPD:REF>
 </XPD:OBJ>
 </XPD:OBJ>

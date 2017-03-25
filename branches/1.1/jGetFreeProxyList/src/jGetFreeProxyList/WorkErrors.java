@@ -7,7 +7,7 @@
  * 
  * @author: ilya.gulevskiy
  * @email: mstorage.project@gmail.com
- * @date: 2016
+ * @date: 2017
  */
 package jGetFreeProxyList;
 
@@ -15,6 +15,8 @@ import java.util.ArrayList;
 
 /**
  * Class to save work errors
+ * 
+ * @version 1.1
  */
 public class WorkErrors {
     
@@ -24,7 +26,7 @@ public class WorkErrors {
     public ArrayList<InfoUrl> WithoutProxies = new ArrayList<>();
     
     /**
-     * Errors from threads, URL-connections and others.
+     * Errors from threads, URL-connections fails and others.
      * <p>
      * There it possible to see why tested proxies were not valid.
      */
