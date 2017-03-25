@@ -328,7 +328,7 @@ public class MainForm extends javax.swing.JFrame {
 				try {
 					jGetFreeProxyList.run();
 				}
-				catch(InterruptedException e) {
+				catch(Exception e) {
                     // Have to call to stop other processes
                     jGetFreeProxyList.shutdown();
                     

@@ -47,7 +47,7 @@ class GetProxy extends WorkThread {
             int flags = Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE;			
             Pattern pattern = Pattern.compile(this.InfoUrl.getPatternString(), flags);
             Matcher m = pattern.matcher(result);
-
+            
             while(m.find()) {
                 if (!m.group(1).isEmpty() && !m.group(2).isEmpty()) {
                     ProxyItem pi = new ProxyItem(
@@ -59,12 +59,14 @@ class GetProxy extends WorkThread {
             }
         }
         catch(Exception e) {
-            
+            this.Main.WorkErrors.get().Errors.add(
+                this.getClass().getName() + "; " + e.getMessage() + "; " + this.InfoUrl.toString()
+            );
         }
         
         this.Main.GetProxyCounter.incrementAndGet();
         
-        System.out.println("GetProxy stopped: " + this.Main.GetProxyCounter.get());
+        Dev.out("GetProxy stopped: " + this.Main.GetProxyCounter.get());
         
         // No proxies was found
         if(0 == cnt) {

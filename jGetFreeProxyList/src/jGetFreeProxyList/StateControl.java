@@ -45,7 +45,7 @@ class StateControl extends WorkThread {
 			}
         }
         
-        System.out.println("StateControl is stopped");
+        Dev.out("StateControl is stopped");
 		
     }
     

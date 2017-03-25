@@ -54,7 +54,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * 
  *}
  *catch(InterruptedException e) {
- *	System.out.println(e.getMessage());
+ *	Dev.out(e.getMessage());
  *}
  * </code></pre>
  *
@@ -108,6 +108,9 @@ public final class jGetFreeProxyList {
 	 * @throws InterruptedException - from Executors
 	 */
     public void run() throws InterruptedException {
+        // Enable-disable development tool
+        Dev.setEnableDebug(Settings.EnableDebug);
+        
 		this.init();
 		
 		// Start StateControl
@@ -135,7 +138,7 @@ public final class jGetFreeProxyList {
 			throw new RuntimeException("There is no proxies were found for test");
 		}
         
-        System.out.println("Received proxies: " + this.RawProxies.size());
+        Dev.out("Received proxies: " + this.RawProxies.size());
 		
 		// Start QueueProducer
 		this.ExQueueProducer = Executors.newSingleThreadExecutor();
@@ -150,7 +153,7 @@ public final class jGetFreeProxyList {
         this.ExTestProxy.shutdown();
 		this.ExQueueProducer.shutdown();
 		
-        System.out.println("Before awaitTermination");
+        Dev.out("Before awaitTermination");
         
 //        throw new InterruptedException("From run method");
         
@@ -166,7 +169,7 @@ public final class jGetFreeProxyList {
             new ArrayList<ProxyItem>(this.TestedProxies), this.WorkErrors.get().get()
         );
         
-        System.out.println("-------- Run is finished -------------");
+        Dev.out("-------- Run is finished -------------");
 		
     }
     
@@ -195,7 +198,7 @@ public final class jGetFreeProxyList {
             new ArrayList<ProxyItem>(this.TestedProxies), this.WorkErrors.get().get()
         );
         
-        System.out.println("-------- shutdown is finished -------------");
+        Dev.out("-------- shutdown is finished -------------");
     }
     
 	/**
@@ -237,17 +240,25 @@ public final class jGetFreeProxyList {
 					for(ProxyItem s: testedProxies) str += s.toString();
                     System.out.println(".done(): " + str);
                     
-                    if (null != errors && !errors.WithoutProxies.isEmpty()){
-						String str2 = "";
-						for(InfoUrl s: errors.WithoutProxies) str += s.toString();
-                        System.out.println(".errors.WithoutProxies: " + str2);
+                    if (null != errors) {
+                        // If there were any pages without proxies
+                        if (!errors.WithoutProxies.isEmpty()){
+                            System.out.println(".errors.WithoutProxies: ");
+                            for(InfoUrl s: errors.WithoutProxies) System.out.println(s.toString());
+                        }
+                        
+                        // Print all errors of connections to tested proxies
+                        if (!errors.Errors.isEmpty()){
+                            System.out.println(".errors.Errors: ");
+                            for(String s: errors.Errors) System.out.println(s);
+                        }
                     }
                    
 				}
 			}
 		);
         
-        System.out.println("Program is started");
+        Dev.out("Program is started");
 		
 		try {
             // Execute work in other thread
@@ -259,19 +270,17 @@ public final class jGetFreeProxyList {
                         // Run work processes
                         jGetFreeProxyList.run();
                     }
-                    catch(InterruptedException e) {
+                    catch(Exception e) {
                         // Have to call to stop other processes
                         jGetFreeProxyList.shutdown();
                         
-                        System.out.println("Into executor:" + e.getMessage());
+                        System.out.println(e.getMessage());
                     }
                 }
             });
             
 //            // Stop work if something happen
 //            if (true /**something happen**/){
-//                Thread.sleep(10000);
-//                System.out.println("Before call stop()");
 //                jGetFreeProxyList.stop();
 //            }
             
@@ -280,10 +289,10 @@ public final class jGetFreeProxyList {
             
 		}
 		catch(InterruptedException e) {            
-			System.out.println("Into main:" + e.getMessage());
+			System.out.println(e.getMessage());
 		}
         
-        System.out.println("Program is stopped");
+        Dev.out("Program is stopped");
 		
 	}
     
