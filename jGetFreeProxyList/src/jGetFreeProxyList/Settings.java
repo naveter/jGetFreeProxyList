@@ -94,7 +94,7 @@ public class Settings {
 //                new URL("http://www.prime-speed.ru/proxy/free-proxy-list/all-working-proxies.php")
 //            ));
 //			GetProxyUrls.add(new InfoUrl(new URL("http://samair.ru/proxy/")));
-//			GetProxyUrls.add(new InfoUrl(new URL("http://proxydb.net/")));
+			GetProxyUrls.add(new InfoUrl(new URL("http://proxydb.net/")));
 			GetProxyUrls.add(
                 new InfoUrl(new URL("http://www.atomintersoft.com/products/alive-proxy/proxy-list"))
             );

@@ -213,6 +213,15 @@ public final class jGetFreeProxyList {
 		if (Settings.AmountThreads <= 0) {
 			throw new RuntimeException("AmountThreads has to be a positive number");
 		}
+        
+        // Reset all storages
+        this.ProxiesQueue.clear();
+        this.RawProxies.clear();
+        this.GetProxyCounter.set(0);
+        this.TestProxyCounter.set(0);
+        this.IsStopped.set(false);
+        this.TestedProxies.clear();
+        this.WorkErrors.set(new WorkErrors());
 	}
 	
 	public static void main(String[] args) {
@@ -270,10 +279,7 @@ public final class jGetFreeProxyList {
             es.awaitTermination(Settings.AwaitTestProxy, TimeUnit.SECONDS);
             
 		}
-		catch(InterruptedException e) {
-            // Have to call to stop other processes
-            jGetFreeProxyList.shutdown();
-            
+		catch(InterruptedException e) {            
 			System.out.println("Into main:" + e.getMessage());
 		}
         
