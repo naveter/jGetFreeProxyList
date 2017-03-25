@@ -7,6 +7,8 @@ package testgui;
 
 import java.awt.Toolkit;
 import jGetFreeProxyList.*;
+import static jGetFreeProxyList.Settings.GetProxyUrls;
+import java.net.URL;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
@@ -16,6 +18,57 @@ import javax.swing.SwingWorker;
  * @author ilya.gulevskiy
  */
 public class MainForm extends javax.swing.JFrame {
+    
+    // Initialize jGetFreeProxyList object
+    final private jGetFreeProxyList jGetFreeProxyList = new jGetFreeProxyList(
+				
+			// Listener for consumer's communications
+			new jGetFreeProxyListListener(){
+				
+				/** Method will cal every second and give a consumer percentage of work, 100 - is 100%.
+				 * To give opportunity to make a process bar or other information things.
+				 * Be aware, testProxyPerc will be zero until getProxyPerc became 100.
+				 * 
+				 * @param getProxyPerc - percentage of ask urls with proxies
+				 * @param testProxyPerc - percentage of test proxies
+				 */
+				@Override
+				public void process(int getProxyPerc, int testProxyPerc){
+                    jProgressBarGet.setValue(getProxyPerc);
+					jProgressBarTest.setValue(testProxyPerc);
+				}
+				
+				/**
+				 * Will call when all work is done. Give ArrayList of tested proxies.
+				 * 
+				 * @param testedProxies - list of tested proxies
+				 * @param errors - structure of errors. <code>null</code> if it was no errors.
+				 */
+				@Override
+				public void done(ArrayList<ProxyItem> testedProxies, WorkErrors errors){
+					
+					// Print tested proxies
+					if(testedProxies.size() > 0){
+						StringBuffer results = new StringBuffer();
+						for(ProxyItem s: testedProxies) results.append(s.toString() + "\n");
+						jTextAreaDone.setText( results.substring(0, results.length() - 1) );
+					}
+					
+					// Print errors if they happend
+                    if (null != errors && !errors.WithoutProxies.isEmpty()){
+						StringBuffer results2 = new StringBuffer();
+						results2.append(jTextAreaDone.getText());
+						for(InfoUrl s: errors.WithoutProxies) results2.append("\n" + s.toString());
+                        jTextAreaDone.setText( results2.toString() );
+                    }
+                   
+					// Unblock Main button
+					jButtonStart.setEnabled(true);
+                    jButtonStop.setEnabled(false);
+					
+				}
+			}
+		);
 
 	/**
 	 * Creates new form MainForm
@@ -60,6 +113,7 @@ public class MainForm extends javax.swing.JFrame {
         jTextAreaGetProxyUrls = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextAreaDone = new javax.swing.JTextArea();
+        jButtonStop = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Test of jGetFreeProxyList");
@@ -118,6 +172,14 @@ public class MainForm extends javax.swing.JFrame {
         jTextAreaDone.setRows(5);
         jScrollPane3.setViewportView(jTextAreaDone);
 
+        jButtonStop.setText("Stop");
+        jButtonStop.setEnabled(false);
+        jButtonStop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonStopActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelMainLayout = new javax.swing.GroupLayout(jPanelMain);
         jPanelMain.setLayout(jPanelMainLayout);
         jPanelMainLayout.setHorizontalGroup(
@@ -126,10 +188,6 @@ public class MainForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMainLayout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                        .addComponent(jProgressBarGet, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanelMainLayout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addGap(14, 14, 14)
@@ -161,12 +219,17 @@ public class MainForm extends javax.swing.JFrame {
                         .addGap(32, 32, 32)
                         .addComponent(jTextFieldURLConnectionTimeOut))
                     .addGroup(jPanelMainLayout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelMainLayout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                         .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
                             .addGroup(jPanelMainLayout.createSequentialGroup()
-                                .addGap(96, 96, 96)
-                                .addComponent(jButtonStart)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(jButtonStart)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButtonStop))
+                            .addComponent(jProgressBarGet, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPanelMainLayout.setVerticalGroup(
@@ -201,7 +264,9 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextFieldURLConnectionTimeOut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                .addComponent(jButtonStart)
+                .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonStart)
+                    .addComponent(jButtonStop))
                 .addGap(18, 18, 18)
                 .addGroup(jPanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jProgressBarGet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -233,58 +298,27 @@ public class MainForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStartActionPerformed
-		
 		// Block Main button
 		this.jButtonStart.setEnabled(false);
-				
-		final jGetFreeProxyList jGetFreeProxyList = new jGetFreeProxyList(
-				
-			// Listener for consumer's communications
-			new jGetFreeProxyListListener(){
-				
-				/** Method will cal every second and give a consumer percentage of work, 100 - is 100%.
-				 * To give opportunity to make a process bar or other information things.
-				 * Be aware, testProxyPerc will be zero until getProxyPerc became 100.
-				 * 
-				 * @param getProxyPerc - percentage of ask urls with proxies
-				 * @param testProxyPerc - percentage of test proxies
-				 */
-				@Override
-				public void process(int getProxyPerc, int testProxyPerc){
-                    jProgressBarGet.setValue(getProxyPerc);
-					jProgressBarTest.setValue(testProxyPerc);
-				}
-				
-				/**
-				 * Will call when all work is done. Give ArrayList of tested proxies.
-				 * 
-				 * @param testedProxies - list of tested proxies
-				 * @param errors - structure of errors. <code>null</code> if it was no errors.
-				 */
-				@Override
-				public void done(ArrayList<ProxyItem> testedProxies, WorkErrors errors){
-					
-					// Print tested proxies
-					if(testedProxies.size() > 0){
-						StringBuffer results = new StringBuffer();
-						for(ProxyItem s: testedProxies) results.append(s.toString() + "\n");
-						jTextAreaDone.setText( results.substring(0, results.length() - 1) );
-					}
-					
-					// Print errors if they happend
-                    if (null != errors && !errors.WithoutProxies.isEmpty()){
-						StringBuffer results2 = new StringBuffer();
-						results2.append(jTextAreaDone.getText());
-						for(InfoUrl s: errors.WithoutProxies) results2.append("\n" + s.toString());
-                        jTextAreaDone.setText( results2.toString() );
-                    }
-                   
-					// Unblock Main button
-					jButtonStart.setEnabled(true);
-					
-				}
-			}
-		);
+        this.jButtonStop.setEnabled(true);
+        
+        // Set up especial settings.
+        // Be aware, this settings will not seen in form.
+        try {
+            InfoUrl iu1 = new InfoUrl(new URL("https://www.us-proxy.org/"));
+            String p1 = "<td>([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3})</td>\\s*<td>([0-9]+)</td>";
+            iu1.setPatternString(p1);
+            
+            // When add new page with custom RegExp, it must be tested at development stage
+//            ArrayList<ProxyItem> l1 = iu1.test();
+//            System.out.println(l1.toString());
+            
+            Settings.GetProxyUrls.clear();
+            Settings.GetProxyUrls.add(iu1);
+        }
+        catch (Exception e){
+            jTextAreaDone.setText("ERROR: " + e.getMessage());
+        }
 		
 		// Do it asynchronously
 		SwingWorker worker = new SwingWorker<Integer, Integer>() {
@@ -295,8 +329,14 @@ public class MainForm extends javax.swing.JFrame {
 					jGetFreeProxyList.run();
 				}
 				catch(InterruptedException e) {
+                    // Have to call to stop other processes
+                    jGetFreeProxyList.shutdown();
+                    
 					jTextAreaDone.setText( e.getMessage() );
 				}
+                
+                jButtonStart.setEnabled(true);
+                jButtonStop.setEnabled(false);
 		
 				return 42;
 			}
@@ -304,8 +344,30 @@ public class MainForm extends javax.swing.JFrame {
 		};
 		worker.execute();
 		
-		
     }//GEN-LAST:event_jButtonStartActionPerformed
+
+    private void jButtonStopActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonStopActionPerformed
+		this.jButtonStop.setEnabled(false);
+
+        // Do it asynchronously
+		SwingWorker worker = new SwingWorker<Integer, Integer>() {
+			@Override
+			protected Integer doInBackground() throws Exception {
+				jGetFreeProxyList.stop();
+                
+                // We dont know exactly when all work threads will stop
+                // Make suggestion it equal TimeOut * 3 sec
+                Thread.sleep(Settings.URLConnectionTimeOut * 3 * 1000);
+		
+                jButtonStart.setEnabled(true);
+                
+				return 42;
+			}
+
+		};
+		worker.execute();
+        
+    }//GEN-LAST:event_jButtonStopActionPerformed
 
 	/**
 	 * @param args the command line arguments
@@ -354,7 +416,7 @@ public class MainForm extends javax.swing.JFrame {
 		this.jTextAreaTestByUrls.setText(testByUrls.substring(0, testByUrls.length() - 1));
 		
 		StringBuffer getProxyUrls = new StringBuffer();
-		for(InfoUrl iu:Settings.GetProxyUrls) getProxyUrls.append(iu.Url.toString() + "\n");
+		for(InfoUrl iu:Settings.GetProxyUrls) getProxyUrls.append(iu.getUrl().toString() + "\n");
 		this.jTextAreaGetProxyUrls.setText(getProxyUrls.substring(0, getProxyUrls.length() - 1));
 		
 		this.jTextFieldAmountThreads.setText(Integer.toString(Settings.AmountThreads));
@@ -370,10 +432,12 @@ public class MainForm extends javax.swing.JFrame {
 		this.jProgressBarTest.setMaximum(100);
 		
 		jTextAreaDone.setText("");
+        
 	}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton jButtonStart;
+    private javax.swing.JButton jButtonStop;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
