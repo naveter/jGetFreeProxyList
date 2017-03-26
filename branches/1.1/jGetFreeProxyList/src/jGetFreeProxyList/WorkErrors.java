@@ -14,7 +14,7 @@ package jGetFreeProxyList;
 import java.util.ArrayList;
 
 /**
- * Class to save work errors
+ * Class to save work errors.
  * 
  * @version 1.1
  */
@@ -28,12 +28,16 @@ public class WorkErrors {
     /**
      * Errors from threads, URL-connections fails and others.
      * <p>
-     * There it possible to see why tested proxies were not valid.
+     * There is possible to see why tested proxies were not valid.
+     * Almost always will filled because it consists by all 
+     * responses of servers when proxy was refused.
      */
     public ArrayList<String> Errors = new ArrayList<>();
     
     /**
-     * Check wether any field is filled. Return <code>null</code> if not.
+     * Check wether any errors is occured. 
+     * Return <code>null</code> if not
+     * 
      * @return - WorkErrors or null
      */
     public WorkErrors get(){

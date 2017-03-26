@@ -20,18 +20,24 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * 
  * @version 1.1
  */
-public class Dev {
+class Dev {
+
+    private Dev() {
+    }
+    
     /** Switch on debug regime */
     private static AtomicBoolean EnableDebug = new AtomicBoolean(false);
     
     /** Common log for all messages */
     private static CopyOnWriteArrayList<String> Log = new CopyOnWriteArrayList<>();
     
-    public static boolean getEnableDebug() {
+    /** Get development regime */
+    static boolean getEnableDebug() {
         return Dev.EnableDebug.get();
     }
 
-    public static void setEnableDebug(boolean b) {
+    /** Set development regime */
+    static void setEnableDebug(boolean b) {
         Dev.EnableDebug.set(b);
     }
     
@@ -39,7 +45,7 @@ public class Dev {
      * Write message into log
      * @param s - debug message
      */
-    public static void out(String s) {
+    static void out(String s) {
         Dev.Log.add(s);
         if (true == Dev.EnableDebug.get()) {
             System.out.println(s);

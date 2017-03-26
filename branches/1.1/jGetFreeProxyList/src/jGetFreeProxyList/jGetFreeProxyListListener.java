@@ -14,7 +14,7 @@ package jGetFreeProxyList;
 import java.util.ArrayList;
 
 /**
- * Listener for consumer's communications
+ * Listener for communication between client and work processes.
  * 
  * @version 1.1
  */
@@ -36,7 +36,9 @@ public interface jGetFreeProxyListListener {
 	 * Give <code>ArrayList&lt;ProxyItem&gt;</code> of tested proxies.
 	 * 
 	 * @param testedProxies - list of tested proxies
-     * @param errors - structure of errors. <code>null</code> if it was no errors.
+     * @param errors - structure of errors. <code>null</code> if it was no errors, 
+     * but it will almost never happens, because it consists by all responses of 
+     * servers when proxy was refused. 
 	 */
     public void done(ArrayList<ProxyItem> testedProxies, WorkErrors errors);
 	

@@ -42,7 +42,7 @@ public class MainForm extends javax.swing.JFrame {
 				 * Will call when all work is done. Give ArrayList of tested proxies.
 				 * 
 				 * @param testedProxies - list of tested proxies
-				 * @param errors - structure of errors. <code>null</code> if it was no errors.
+				 * @param errors - structure of errors. 
 				 */
 				@Override
 				public void done(ArrayList<ProxyItem> testedProxies, WorkErrors errors){
