@@ -7,7 +7,7 @@
  * 
  * @author: ilya.gulevskiy
  * @email: mstorage.project@gmail.com
- * @date: 2016
+ * @date: 2017
  */
 package jGetFreeProxyList;
 
@@ -18,21 +18,33 @@ import java.util.Set;
 
 
 /**
- * Filler to queue will add task to queue as it will need
-**/
+ * Filler into queue, it will add tasks to queue as it will possible.
+ * 
+ * @version 1.1
+ */
 class QueueProducer extends WorkThread {
     
 	@Override
     public void run() {
         
+        Dev.out("QueueProducer started");
+        
         for(ProxyItem pi : this.Main.RawProxies.values()){
+            
+            // If stop() is called
+            if (true == this.Main.IsStopped.get()) break;
+            
             try {
                 this.Main.ProxiesQueue.put(pi);
             }
             catch(InterruptedException e) {
-                
+                this.Main.WorkErrors.get().Errors.add(
+                    this.getClass().getName() + "; " + e.getMessage()
+                );                            
             }
         }
+        
+        Dev.out("QueueProducer stopped");
         
     }
     

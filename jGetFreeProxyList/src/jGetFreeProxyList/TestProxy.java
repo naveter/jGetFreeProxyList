@@ -7,7 +7,7 @@
  * 
  * @author: ilya.gulevskiy
  * @email: mstorage.project@gmail.com
- * @date: 2016
+ * @date: 2017
  */
 package jGetFreeProxyList;
 
@@ -25,13 +25,16 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Use in pool of threads to find out whether concrete proxy valid or not
+ * 
+ * @version 1.1
  */
 class TestProxy extends WorkThread {
 	
 	@Override
     public void run() {
         
-        while(true) {
+        // Do work while not call stop() or shutdown()
+        while(true && false == this.Main.IsStopped.get()) {
             ProxyItem pi = null;
             
             try{
@@ -45,6 +48,9 @@ class TestProxy extends WorkThread {
             pi.LastChecked = null;
             pi.RespondMilliSeconds = 0;
             
+            // If stop() is called
+            if (true == this.Main.IsStopped.get()) break;
+            
             try {
                 
                 java.util.Random randomGenerator = new java.util.Random();
@@ -57,6 +63,7 @@ class TestProxy extends WorkThread {
                 HttpURLConnection connection =(HttpURLConnection)iu.openConnection(proxy);
 
                 connection.setRequestProperty("Accept-Charset", "UTF-8");
+                connection.setRequestProperty("User-Agent", Settings.UserAgent);
                 connection.setReadTimeout((Settings.URLConnectionTimeOut*1000));
                 InputStream response = connection.getInputStream();
 
@@ -68,11 +75,17 @@ class TestProxy extends WorkThread {
                 this.Main.TestedProxies.addIfAbsent(pi);
             }
             catch(Exception e) {
-                
+                this.Main.WorkErrors.get().Errors.add(
+                    this.getClass().getName() + "; " + e.getMessage() + "; " + pi.toString()
+                );
             }
 			
 			this.Main.TestProxyCounter.getAndIncrement();
+            
+            Dev.out("TestProxy finished: " + pi.toString());
         }
+        
+        Dev.out("TestProxy thread stopped");
         
     }
     

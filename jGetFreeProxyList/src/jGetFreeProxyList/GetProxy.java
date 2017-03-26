@@ -7,7 +7,7 @@
  * 
  * @author: ilya.gulevskiy
  * @email: mstorage.project@gmail.com
- * @date: 2016
+ * @date: 2017
  */
 package jGetFreeProxyList;
 
@@ -23,7 +23,9 @@ import java.util.regex.Pattern;
 
 /**
  * Use in pool of threads to find proxies from concrete url
-**/
+ * 
+ * @version 1.1
+ */
 class GetProxy extends WorkThread {
     
     protected InfoUrl InfoUrl;
@@ -31,10 +33,11 @@ class GetProxy extends WorkThread {
 	@Override
     public void run() {
         int cnt = 0;
-        
+                
         try {
-            URLConnection connection = new URL( this.InfoUrl.Url.toString() ).openConnection();
+            URLConnection connection = new URL( this.InfoUrl.getUrl().toString() ).openConnection();
             connection.setRequestProperty("Accept-Charset", "UTF-8");
+            connection.setRequestProperty("User-Agent", Settings.UserAgent);
             connection.setReadTimeout((Settings.URLConnectionTimeOut*1000));
             InputStream response = connection.getInputStream();
 
@@ -44,9 +47,9 @@ class GetProxy extends WorkThread {
             }
 
             int flags = Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE;			
-            Pattern pattern = Pattern.compile(this.InfoUrl.PatternString, flags);
+            Pattern pattern = Pattern.compile(this.InfoUrl.getPatternString(), flags);
             Matcher m = pattern.matcher(result);
-
+            
             while(m.find()) {
                 if (!m.group(1).isEmpty() && !m.group(2).isEmpty()) {
                     ProxyItem pi = new ProxyItem(
@@ -58,10 +61,14 @@ class GetProxy extends WorkThread {
             }
         }
         catch(Exception e) {
-            
+            this.Main.WorkErrors.get().Errors.add(
+                this.getClass().getName() + "; " + e.getMessage() + "; " + this.InfoUrl.toString()
+            );
         }
         
         this.Main.GetProxyCounter.incrementAndGet();
+        
+        Dev.out("GetProxy stopped: " + this.Main.GetProxyCounter.get());
         
         // No proxies was found
         if(0 == cnt) {

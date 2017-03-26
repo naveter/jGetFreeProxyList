@@ -7,20 +7,22 @@
  * 
  * @author: ilya.gulevskiy
  * @email: mstorage.project@gmail.com
- * @date: 2016
+ * @date: 2017
  */
 package jGetFreeProxyList;
 
 import java.util.ArrayList;
 
 /**
- * Listener for consumer's communications
+ * Listener for communication between client and work processes.
+ * 
+ * @version 1.1
  */
 public interface jGetFreeProxyListListener {
 	
 	/** 
 	 * Method will cal every second and give a consumer percentage of work, 100 - is 100%.
-	 * To give opportunity to make a process bar or other information things.
+	 * To give opportunity to make a progress bar or other information things.
 	 * <p>
 	 * Be aware, testProxyPerc will be zero until getProxyPerc became 100.
 	 * 
@@ -34,7 +36,9 @@ public interface jGetFreeProxyListListener {
 	 * Give <code>ArrayList&lt;ProxyItem&gt;</code> of tested proxies.
 	 * 
 	 * @param testedProxies - list of tested proxies
-     * @param errors - structure of errors. <code>null</code> if it was no errors.
+     * @param errors - structure of errors. <code>null</code> if it was no errors, 
+     * but it will almost never happens, because it consists by all responses of 
+     * servers when proxy was refused. 
 	 */
     public void done(ArrayList<ProxyItem> testedProxies, WorkErrors errors);
 	
