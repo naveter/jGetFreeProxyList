@@ -25,7 +25,28 @@ import java.util.regex.Pattern;
 /**
  * Structure to represent info about URL-page when possible to find list of proxies
  * and how to parse it.
+ * <p>
+ * By default, <a href="https://en.wikipedia.org/wiki/Regular_expression">RegExp</a> 
+ * pattern to parse page represented as 
+ * <code>([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3})\\s*:\\s*([0-9]+)</code>,
+ * that mean all proxies in HTML code of page must be in format IP:PORT 
+ * as 52.119.20.14:80 or 138.68.242.184:3128. It is a simpliest form of parsing, and
+ * only not many sites represent his lists of proxies in such format.
+ * <p>
+ * You can expand your search pages if will use custom parsing rules. 
+ * <p>
+ * For example, any page save HTML-code with proxy in items like  
+ * <code>&lt;td&gt;52.119.20.14&lt;/td&gt;&lt;td&gt;80&lt;/td&gt;</code>. You can parse it
+ * with next RegExp: 
+ * <p>
+ * <code>&lt;td&gt;([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}
+ * \\.[0-9]{1,3})&lt;/td&gt;\\s*&lt;td&gt;([0-9]+)&lt;/td&gt;</code>
+ * <p>
+ * <b>NOTE</b>, when you add new URL-page and RegExp pattern for parse it, 
+ * is highly recommend on development stage to check once with InfoUrl.test() 
+ * method to know whether this pattern work right or not. In the future this check is not need.
  * 
+ * @see <a href="https://sourceforge.net/p/jgetfreeproxylist/wiki/Home/">See manual</a>
  * @version 1.1
  */
 public class InfoUrl {
@@ -33,8 +54,6 @@ public class InfoUrl {
 	
 	/**
 	 * PregMach how to find proxy.
-	 * By default represented as 
-     * <code>([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3})\\s*:\\s*([0-9]+)</code>
 	 */
     private String PatternString = "([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3})\\s*:\\s*([0-9]+)";
 	
@@ -46,10 +65,22 @@ public class InfoUrl {
 		this.Url = url;
     }
     
+    /**
+     * Get Url of HTTP-page when possible to find free proxies.
+     * 
+     * @return 
+     */
     public URL getUrl() {
         return this.Url;
     }
 
+    /**
+     * Get pattern string.
+	 * By default represented as 
+     * <code>([0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3})\\s*:\\s*([0-9]+)</code>
+     * 
+     * @return 
+     */
     public String getPatternString() {
         return this.PatternString;
     }
@@ -80,6 +111,8 @@ public class InfoUrl {
      * <b>is wrong</b> and you must try other RegExp.
      * <p>
      * This method exists for refuse senseless work when will launch run() method.
+     * <p>
+     * Must not use in release stage, usually used to once when invented RegExp.
      * 
      * @return - list of found proxies
      */

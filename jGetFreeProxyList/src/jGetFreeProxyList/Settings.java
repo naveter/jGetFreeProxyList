@@ -26,7 +26,7 @@ import java.util.TimeZone;
  */
 public class Settings {
 	
-	protected static String Version = "1.1";
+	private static String Version = "1.1";
 	
 	/**
 	 * List of public urls to try to connect with proxies. At least 5.
@@ -102,7 +102,7 @@ public class Settings {
 //			GetProxyUrls.add(new InfoUrl(
 //                new URL("http://www.prime-speed.ru/proxy/free-proxy-list/all-working-proxies.php")
 //            ));
-			GetProxyUrls.add(new InfoUrl(new URL("http://samair.ru/proxy/")));
+//			GetProxyUrls.add(new InfoUrl(new URL("http://samair.ru/proxy/")));
 			GetProxyUrls.add(new InfoUrl(new URL("http://proxydb.net/")));
 			GetProxyUrls.add(
                 new InfoUrl(new URL("http://www.atomintersoft.com/products/alive-proxy/proxy-list"))

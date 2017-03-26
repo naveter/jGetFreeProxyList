@@ -27,7 +27,19 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 
 /**
- * Utility to get a list of tested free proxies.
+ * jGetFreeProxyList - library to get a list of tested free proxies to java code.
+ * <p>
+ * This Java library help when your app need a list of able to work proxies. 
+ * Just add jGetFreeProxyList to your progect, set up settings if you want and run it. 
+ * According to settings, after 5 or more seconds you get list of tested free proxies.
+ * <p>
+ * For example, your app have to send a lot of HTTP queries for some hosts, 
+ * but you dont want do it with one IP address to refuse yours ban by IP. 
+ * You import jGetFreeProxyList into your app, run it in other thread, 
+ * set up settings and set handlers. Afterwards jGetFreeProxyList receives list 
+ * of free proxies from sites you set up in settings, make test for every IP 
+ * and give you list of tested proxies into yours java code. Amount of threads 
+ * and timeouts can be set up too.
  * <p>
  * 
  * How to use:
@@ -54,7 +66,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  *  // But is better to use your own.
  * 
  *  // Run process. But is better to run it in diffrent thread.
- *	jGetFreeProxyList.run();
+ *  jGetFreeProxyList.run();
  * 
  *}
  *catch(Exception e) {
@@ -65,7 +77,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * }
  * </code></pre>
  *
- * @see <a href="https://sourceforge.net/p/jgetfreeproxylist/wiki/Home/">See manual</a>
+ * @see <a href="https://sourceforge.net/p/jgetfreeproxylist/wiki/Home/">See documentation</a>
  * @version 1.1
  */
 public final class jGetFreeProxyList {
@@ -212,7 +224,7 @@ public final class jGetFreeProxyList {
 	 * 
 	 * @throws RuntimeException - if settings is not correct
 	 */
-	protected void init() throws RuntimeException{
+	private void init() throws RuntimeException{
 		if(0 == Settings.GetProxyUrls.size()) {
 			throw new RuntimeException("GetProxyList has to be defined");
 		}

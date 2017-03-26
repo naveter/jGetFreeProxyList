@@ -15,12 +15,15 @@ import java.net.InetAddress;
 import java.util.Date;
 
 /**
- * Substance wich take care about proxy's item
+ * Substance wich take care about proxy.
  * 
  * @version 1.1
  */
 public class ProxyItem {
+    /** IP-address of proxy */
     public InetAddress Ip;
+    
+    /** Port of proxy */
     public int Port;
     
 	/** How much second wait answer in last test time */
