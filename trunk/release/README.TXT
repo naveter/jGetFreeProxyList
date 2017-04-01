@@ -25,7 +25,7 @@ WHATS NEW IN v.1.1:
 
 - added feature to set up RegExp pattern to parse page with proxies;
 - now, it is possible to stop running process;
-- handlers for exceptions became reliabler and deeper;
+- handlers for exceptions became more reliable and deeper;
 - errors collection became more detalized;
 - development regime is avaliable now.
 
