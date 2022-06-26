@@ -4,13 +4,9 @@
 
 For example, your app have to send a lot of HTTP queries for some hosts, but you dont want do it with one IP address to refuse yours ban by IP. You import jGetFreeProxyList into your app, run it in other thread, set up settings and set handlers. Afterwards jGetFreeProxyList receives list of free proxies from sites you set up in settings, make test for every IP and give you list of tested proxies into yours java code. Amount of threads and timeouts can be set up too.
 
-**WHATS NEW IN v.1.1:**
+**WHATS NEW IN v.1.2:**
 
-* added feature to set up RegExp pattern to parse page with proxies;
-* now, it is possible to stop running process;
-* handlers for exceptions became more reliable and deeper;
-* errors collection became more detalized;
-* development regime is avaliable now.
+* added sorting for checked proxies by time of respond
 
 **How it works**
 
