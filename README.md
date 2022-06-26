@@ -20,7 +20,5 @@ For example, your app have to send a lot of HTTP queries for some hosts, but you
 1. jGetFreeProxyList checks every proxy through popular sites you set up;
 1. jGetFreeProxyList return in your app list of checked proxies.
 
-**NOTICE! This was my first work with Java, I did It without best Java practices!**
-
-See [Wiki](https://github.com/naveter/jGetFreeProxyList/wiki) for more details.
+See [Documentation](https://github.com/naveter/jGetFreeProxyList/wiki) for more details.
 
