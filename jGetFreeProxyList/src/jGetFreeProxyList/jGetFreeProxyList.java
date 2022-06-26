@@ -14,6 +14,8 @@ package jGetFreeProxyList;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -182,9 +184,12 @@ public final class jGetFreeProxyList {
 		this.ExStateControl.shutdown();
 
 		this.jGetFreeProxyListListener.process(100, 100);
-		this.jGetFreeProxyListListener.done(
-            new ArrayList<ProxyItem>(this.TestedProxies), this.WorkErrors.get().get()
-        );
+
+		// Sort by RespondMilliSeconds
+		ArrayList<ProxyItem> sortedProxies = new ArrayList<ProxyItem>(this.TestedProxies);
+		Collections.sort(sortedProxies, new ProxyItemComparator());
+
+		this.jGetFreeProxyListListener.done(sortedProxies, this.WorkErrors.get().get());
         
         Dev.out("-------- Run is finished -------------");
 		

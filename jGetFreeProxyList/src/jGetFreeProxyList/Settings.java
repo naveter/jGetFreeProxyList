@@ -89,23 +89,22 @@ public class Settings {
 			TestByUrls.clear();
 			TestByUrls.add(new URL("http://google.com"));
 			TestByUrls.add(new URL("http://www.amazon.com/"));
-			TestByUrls.add(new URL("http://www.facebook.com/"));
+			TestByUrls.add(new URL("http://www.yandex.ru/"));
 			TestByUrls.add(new URL("http://edition.cnn.com/"));
-			TestByUrls.add(new URL("http://www.bbc.com/news"));
 			
 			GetProxyUrls.clear();
-            GetProxyUrls.add(
-                new InfoUrl(new URL("http://awmproxy.com/freeproxy.php"))
-            );
+//            GetProxyUrls.add(
+//                new InfoUrl(new URL("http://awmproxy.com/freeproxy.php"))
+//            );
             
             // Too big list
 //			GetProxyUrls.add(new InfoUrl(
 //                new URL("http://www.prime-speed.ru/proxy/free-proxy-list/all-working-proxies.php")
 //            ));
-//			GetProxyUrls.add(new InfoUrl(new URL("http://samair.ru/proxy/")));
+			GetProxyUrls.add(new InfoUrl(new URL("http://samair.ru/proxy/")));
 			GetProxyUrls.add(new InfoUrl(new URL("http://proxydb.net/")));
 			GetProxyUrls.add(
-                new InfoUrl(new URL("http://www.atomintersoft.com/products/alive-proxy/proxy-list"))
+                new InfoUrl(new URL("https://www.atomintersoft.com/proxy_list_port_80"))
             );
             
 		}

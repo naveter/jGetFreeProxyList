@@ -313,8 +313,9 @@ public class MainForm extends javax.swing.JFrame {
 //            ArrayList<ProxyItem> l1 = iu1.test();
 //            System.out.println(l1.toString());
             
-            Settings.GetProxyUrls.clear();
-            Settings.GetProxyUrls.add(iu1);
+//            Settings.GetProxyUrls.clear();
+            Settings.GetProxyUrls.add(iu1); // Will not shown in form because form is generated already
+
         }
         catch (Exception e){
             jTextAreaDone.setText("ERROR: " + e.getMessage());
