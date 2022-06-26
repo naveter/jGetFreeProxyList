@@ -6,8 +6,8 @@
  * GNU General Public License
  * 
  * @author: ilya.gulevskiy
- * @email: mstorage.project@gmail.com
- * @date: 2017
+ * @email: naveter@gmail.com
+ * @date: 2017-2022
  */
 
 jGetFreeProxyList - library to get a list of tested free proxies to java code.
@@ -21,16 +21,13 @@ FEATURES:
 - multithread;
 - with ability to setting up rules to parsing of pages.
 
-WHATS NEW IN v.1.1:
+WHATS NEW IN v.1.2:
 
-- added feature to set up RegExp pattern to parse page with proxies;
-- now, it is possible to stop running process;
-- handlers for exceptions became more reliable and deeper;
-- errors collection became more detalized;
-- development regime is avaliable now.
+- added sorting for checked proxies by time of respond
+
 
 FULL DOCUMENTATION 
 
-https://sourceforge.net/p/jgetfreeproxylist/wiki/Home/
+https://github.com/naveter/jGetFreeProxyList/wiki/Documentation
 
 
